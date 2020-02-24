@@ -1,0 +1,23 @@
+.signUpimage {
+    width: 100%;  /* Or whatever */
+    height: 100%; /* Or whatever */
+    position: absolute;
+    margin-right: -425px; /* Magic! */
+    margin-top: -60px;
+}
+
+.left-half {
+    background-color: #1569e0;
+    position: absolute;
+    left: 0px;
+    width: 30%;
+    height: 100%;
+  }
+  
+.right-half {
+    background-color: #fff;;
+    position: absolute;
+    right: 0px;
+    width: 70%;
+    height: 100%;
+  }

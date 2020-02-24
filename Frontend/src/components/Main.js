@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Route} from 'react-router-dom';
 import Home from './LandingPage/Home';
-// import SignUp from './SignUp/SignUp';
+import SignUp from './Account/SignUp';
 
 class Main extends Component {
     render(){
@@ -10,6 +10,7 @@ class Main extends Component {
             <div>
                 {/*Render Different Component based on Route*/}
                 <Route path="/" component={Home}/>
+                <Route path="/signup" component={SignUp}/>
                 
             </div>
         )
