@@ -2,7 +2,7 @@
     width: 100%;  /* Or whatever */
     height: 100%; /* Or whatever */
     position: absolute;
-    margin-right: -425px; /* Magic! */
+    margin-right: -360px; /* Magic! */
     margin-top: -60px;
 }
 
@@ -21,3 +21,28 @@
     width: 70%;
     height: 100%;
   }
+
+.style_heading {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 36px;
+    line-height: 40px;
+    font-weight: 700;
+    margin-bottom: 16px!important;
+    color: #000;
+    margin-left: 300px;
+    position: absolute;
+    
+}
+
+.style__text {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 20px;
+  line-height: 40px;
+  font-weight: 300;
+  margin-bottom: 16px!important;
+  color: #000;
+  margin-left: 300px;
+  margin-top: 80px;
+  position: absolute;
+  
+}

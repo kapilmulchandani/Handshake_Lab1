@@ -27,8 +27,10 @@ class SignUp extends Component{
                         <img class="signUpimage" src={handshakeSignUp}></img> 
                 </div>
                 <div class="right-half">
-                
-                 
+                <h1 class="style_heading">Let's find your next job</h1>
+
+                <div class="style__text">Join Handshake's community of students, <br></br>schools, and employers to find internships,<br></br> land a job, and more.</div>
+                               
                 </div>
             </div>
         )
