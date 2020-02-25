@@ -10,4 +10,4 @@ connection.connect(function(err){
 (err)? console.log(err+'+++++++++++++++//////////'): console.log('connection********');
 });
 
-require('./routes/html-routes')(app, connection);
+// require('./routes/html-routes')(app, connection);
