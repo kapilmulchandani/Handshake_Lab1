@@ -58,11 +58,8 @@ class SignUp extends Component{
         axios.post('http://localhost:3001/signup',data)
             .then(response => {
                 console.log("Status Code Create : ",response.data);
-                if(response.data === 'Book_Id_Exists'){
-                    alert("Book already there");
-                }
                 if(response.data === 'Successful_Insertion'){
-                     window.open('/', "_self");
+                     window.open('/profile', "_self");
                 }
 
             });
