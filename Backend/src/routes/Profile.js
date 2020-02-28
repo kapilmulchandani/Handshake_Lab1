@@ -16,11 +16,6 @@ const connection = mysql.createConnection({
     database:'Students'
     });
 
-connection.connect(function(err) {
-    if (err) throw err
-    
-});
-
 
 //use cors to allow cross origin resource sharing
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
@@ -50,34 +45,33 @@ app.use(function(req, res, next) {
   });
 
 
-//Route to handle Post Request Call
-app.post('/login',function(req,res){    
+app.get('/getProfileData',function(req,res){    
     console.log("Inside Login Post Request");
-        console.log(req.body.EmailIdData);
-        console.log(req.body.PasswordData);
+    connection.connect(function(err) {
+        if (err) throw err;
         console.log("Connected!");
-        var sql = "select * from student_info where EmailId='"+req.body.EmailIdData+"' and Password='"+req.body.PasswordData+"';";
+        // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+        var sql = "SELECT * FROM Student_Details";
         connection.query(sql, function (err, result) {
             if (err) throw err;
-            if(result.length == 1){
-                // console.log(result.length);
-                res.end("Login_Successful");
-            }
-            else{
-                console.log("Unsuccessfull");
-            }
-            
-            
+            console.log("1 record inserted");
+            res.end("Successful_Insertion");
         });
-        //     console.log("1 record inserted");
-        //     res.end("Successful_Insertion");
-        
+        });
 });
 
 //Route to get All Books when user visits the Home Page
 app.get('/home', function(req,res){
-
-    console.log("Inside Home Login");    
+    connection.connect(function(err) {
+        if(err) throw err;
+        console.log('Connected!');
+        var sql = 'SELECT * FROM student_info';
+        connection.query(sql, function(err, result) {
+            if (err) throw err;
+            console.log('1 record inserted');
+            res.end('SUccessful_insertion');
+        })
+    })
     res.writeHead(200,{
         'Content-Type' : 'application/json'
     });

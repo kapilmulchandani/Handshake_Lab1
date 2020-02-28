@@ -154,7 +154,7 @@ class Navbar extends Component {
                 <div className="content-section implementation">
                     <Menubar model={this.state.items} >
                         <InputText placeholder="Search" type="text"/>
-                        <Button label="Logout" icon="pi pi-power-off" style={{marginLeft:4}}/>
+                        <Button label="Logout" icon="pi pi-power-off" style={{marginLeft:3}} />
                     </Menubar>
                 </div>
             </div>

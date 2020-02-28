@@ -59,7 +59,7 @@ class SignUp extends Component{
             .then(response => {
                 console.log("Status Code Create : ",response.data);
                 if(response.data === 'Successful_Insertion'){
-                     window.open('/profile', "_self");
+                     window.open('/login', "_self");
                 }
 
             });

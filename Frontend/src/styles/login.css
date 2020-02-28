@@ -1,0 +1,11 @@
+.p-float-label {
+    position: absolute;
+    top:240px;
+    left: 590px;
+}
+.float-input {
+    position: absolute;
+    right: 0px;
+    left: 0px;
+    text-align:right;
+}
