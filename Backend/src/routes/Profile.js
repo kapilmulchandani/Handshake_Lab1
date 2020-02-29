@@ -5,7 +5,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var cors = require('cors');
 app.set('view engine', 'ejs');
-
+// const router = express.Router();
 //MySQL config
 
 var mysql = require('mysql');
@@ -15,6 +15,11 @@ const connection = mysql.createConnection({
     password:'1234',//password of your mysql db
     database:'Students'
     });
+
+connection.connect(function(err) {
+   if (err) throw err
+        
+});
 
 
 //use cors to allow cross origin resource sharing
@@ -47,17 +52,17 @@ app.use(function(req, res, next) {
 
 app.get('/getProfileData',function(req,res){    
     console.log("Inside Login Post Request");
-    connection.connect(function(err) {
-        if (err) throw err;
+
+
         console.log("Connected!");
-        // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
-        var sql = "SELECT * FROM Student_Details";
-        connection.query(sql, function (err, result) {
+         var journeyData = "SELECT Journey FROM Student_Details where EmailId='kapilmulchandani2012@gmail.com';";
+        connection.query(journeyData, function (err, result) {
             if (err) throw err;
-            console.log("1 record inserted");
-            res.end("Successful_Insertion");
+            console.log(result);
+            console.log(result[0].Journey);
+            res.end(result[0].Journey);
         });
-        });
+
 });
 
 //Route to get All Books when user visits the Home Page
@@ -104,7 +109,6 @@ app.get('/create', function(req,res){
 
 });
 
-    
-//start your server on port 3001
+// module.exports = router;    
 app.listen(3001);
-console.log("Server Listening on port 3001");
+//start your server on port 3001

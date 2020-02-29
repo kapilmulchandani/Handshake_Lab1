@@ -1,0 +1,1 @@
+export const JOURNEY_DATA = "JOURNEY_DATA";

@@ -6,6 +6,7 @@ import {Link} from 'react-router-dom';
 import {Menubar} from 'primereact/menubar';
 import {Button} from 'primereact/button';
 import {InputText} from "primereact/inputtext";
+import { Redirect } from 'react-router';
 
 class Navbar extends Component {
 
@@ -146,15 +147,23 @@ class Navbar extends Component {
                 
              ]
         };
+        this.logout = this.logout.bind(this);
+    }
+
+    logout = (e)=>{
+       localStorage.clear();
+       this.setState({})
     }
 
     render() {
+
         return (
             <div>
                 <div className="content-section implementation">
+                     {localStorage.getItem("loggedInUser") ? "" : <Redirect to="/" />}
                     <Menubar model={this.state.items} >
                         <InputText placeholder="Search" type="text"/>
-                        <Button label="Logout" icon="pi pi-power-off" style={{marginLeft:3}} />
+                        <Button label="Logout" icon="pi pi-power-off" onClick={this.logout} style={{marginLeft:3}} />
                     </Menubar>
                 </div>
             </div>

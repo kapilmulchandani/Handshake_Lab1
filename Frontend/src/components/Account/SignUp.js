@@ -4,6 +4,19 @@ import handshakeSignUp from './handshakeSignUp.png';
 import axios from 'axios';
 
 //create the Navbar Component
+// function mapStateToProps(store) {
+//     return {
+//         signupSuccess:store.account.signupSuccess,
+//         signupMessage:store.account.signupMessage,
+//     }
+// }
+
+// function mapDispatchToProps(dispatch) {
+//     return {
+//         signup: (data) => dispatch(signup(data)),
+//     };
+// }
+
 class SignUp extends Component{
     constructor(props){
         super(props);
@@ -15,6 +28,8 @@ class SignUp extends Component{
             Password: ""
         }
     }
+
+    
 
     firstNameChangeHandler = (e) => {
         this.setState({
@@ -44,6 +59,7 @@ class SignUp extends Component{
     
     submitLogin = (e) => {
         e.preventDefault();
+        // this.props.signup(data);
 
         const data = {
             FirstNameData : this.state.FirstName,
@@ -55,7 +71,7 @@ class SignUp extends Component{
 
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/signup',data)
+        axios.post('http://localhost:3001/account/signup',data)
             .then(response => {
                 console.log("Status Code Create : ",response.data);
                 if(response.data === 'Successful_Insertion'){
@@ -119,3 +135,4 @@ class SignUp extends Component{
 }
 
 export default SignUp;
+// export default connect(mapStateToProps, mapDispatchToProps)(SignUp);

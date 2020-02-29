@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import '../../styles/home.css';
-
+import { Link } from 'react-router-dom';
 //create the Navbar Component
 class Home extends Component {
     constructor(props) {
@@ -37,9 +37,9 @@ class Home extends Component {
                     </img>
                     <h3 class="collegeName"> San Jose State University </h3>
 
-                    <a title="San Jose State University users can sign in here." class="sso-button" data-bind="click: track_sso_click" href="/login"><div id="sso-name">San Jose State University Sign On</div>
+                    <Link title="San Jose State University users can sign in here." class="sso-button" to="/login"><div id="sso-name">San Jose State University Sign On</div>
                         <i class="fa fa-chevron-right"></i>
-                    </a>
+                    </Link>
                 </div>
 
             </div>

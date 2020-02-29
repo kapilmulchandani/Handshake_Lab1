@@ -5,7 +5,7 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var cors = require('cors');
 app.set('view engine', 'ejs');
-
+const router = express.Router();
 //MySQL config
 
 var mysql = require('mysql');
@@ -51,7 +51,7 @@ app.use(function(req, res, next) {
 
 
 //Route to handle Post Request Call
-app.post('/login',function(req,res){    
+app.post('/login',function(req,resp){    
     console.log("Inside Login Post Request");
         console.log(req.body.EmailIdData);
         console.log(req.body.PasswordData);
@@ -61,13 +61,24 @@ app.post('/login',function(req,res){
             if (err) throw err;
             if(result.length == 1){
                 // console.log(result.length);
-                res.end("Login_Successful");
+                resp.writeHead(200, {
+                    'Content-Type': 'application/json'
+                });
+                resp.end(JSON.stringify({
+                    success: true,
+                    message: "Successfull",
+                    EmailId: result[0].EmailId
+                }));
             }
             else{
-                console.log("Unsuccessfull");
-            }
-            
-            
+                resp.writeHead(401, {
+                    'Content-Type': 'application/json'
+                });
+                resp.end(JSON.stringify({
+                    success: false,
+                    message: "The username or password you entered is incorrect."
+                }));
+            }     
         });
         //     console.log("1 record inserted");
         //     res.end("Successful_Insertion");
@@ -85,20 +96,62 @@ app.get('/home', function(req,res){
 });
 
 
+app.post('/getProfileData',function(req,resp){    
+    console.log(req);
+    console.log("Inside Profile Data Request");
+        // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+        // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
+        var sql = "SELECT * FROM Student_Details where EmailId='"+req.body.EmailIdData+"';";
+        console.log(req.body.EmailIdData);
+        connection.query(sql, function (err, result) {
+            if (err) throw err;
+            if(result.length == 1){
+                resp.writeHead(200, {
+                    'Content-Type': 'application/json'
+                });
+                resp.end(JSON.stringify({
+                    EmailId: result[0].EmailId,
+                    journey: result[0].Journey
+                }));
+        }
+        });
+
+});
 
 app.post('/signup', function(req,res){
         console.log("Inside Post SignUp Function");
         console.log(req.body);
-        connection.connect(function(err) {
+        console.log("Connected!");
+        var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+        var sql2 = "INSERT INTO student_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
+        connection.query(sql, function (err, result) {
             if (err) throw err;
-            console.log("Connected!");
-            var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
-            connection.query(sql, function (err, result) {
-                if (err) throw err;
-                console.log("1 record inserted");
-                res.end("Successful_Insertion");
-            });
-            });
+            console.log("1 record inserted");
+            // res.end("Successful_Insertion");
+        });
+        connection.query(sql2, function (err, result) {
+            if (err) throw err;
+            console.log("2nd table insertion done");
+            res.end("Successful_Insertion");
+        });
+});
+
+app.post('/update', function(req,res){
+    console.log("Inside Post SignUp Function");
+    console.log(req.body);
+    console.log("Connected!");
+    var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+    var sql2 = "INSERT INTO student_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log("1 record inserted");
+        // res.end("Successful_Insertion");
+    });
+    connection.query(sql2, function (err, result) {
+        if (err) throw err;
+        console.log("2nd table insertion done");
+        res.end("Successful_Insertion");
+    });
 });
 
 app.post('/delete', function(req,res){
@@ -110,7 +163,7 @@ app.get('/create', function(req,res){
 
 });
 
-    
+
+// module.exports = router;
 //start your server on port 3001
 app.listen(3001);
-console.log("Server Listening on port 3001");
