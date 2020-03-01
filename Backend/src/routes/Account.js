@@ -97,7 +97,7 @@ app.get('/home', function(req,res){
 
 
 app.post('/getProfileData',function(req,resp){    
-    console.log(req);
+    // console.log(req);
     console.log("Inside Profile Data Request");
         // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
         // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
@@ -120,7 +120,7 @@ app.post('/getProfileData',function(req,resp){
 
 app.post('/signup', function(req,res){
         console.log("Inside Post SignUp Function");
-        console.log(req.body);
+        // console.log(req.body);
         console.log("Connected!");
         var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
         var sql2 = "INSERT INTO student_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
@@ -138,7 +138,7 @@ app.post('/signup', function(req,res){
 
 app.post('/update', function(req,res){
     console.log("Inside Post SignUp Function");
-    console.log(req.body);
+    // console.log(req.body);
     console.log("Connected!");
     var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
     var sql2 = "INSERT INTO student_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";

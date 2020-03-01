@@ -71,7 +71,7 @@ class SignUp extends Component{
 
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/account/signup',data)
+        axios.post('http://localhost:3001/signup',data)
             .then(response => {
                 console.log("Status Code Create : ",response.data);
                 if(response.data === 'Successful_Insertion'){

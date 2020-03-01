@@ -26,31 +26,59 @@ class Profile extends Component {
         this.state = {
             EmailId: JSON.parse(localStorage.getItem("loggedInUser")).EmailId,
             data : null,
+            editable:false,
             flag : 1,
             journey : '',
             education: ''
         };
         this.getData.bind(this);
+        this.journeyChangeHandler.bind(this);
     }
     
     handleJourneyEdit = async (e) => {
         e.preventDefault();
         // console.log('Helloooo');
-        const journeyNew = prompt('Please Update Journey: ');
-        console.log('Woaaah', journeyNew);
-        this.props.fetchprofileAction({
-            ...this.state,
-            journey: journeyNew 
-        })
+        this.setState({
+            editable : true
+        });
+        // const journeyNew = prompt('Please Update Journey: ');
+        // console.log('Woaaah', journeyNew);
+        // this.props.fetchprofileAction({
+        //     ...this.state,
+        //     journey: journeyNew 
+        // })
 
-        console.log('JOURNEY', this.state.journey);
+        // console.log('JOURNEY', this.state.journey);
+        // this.setState({
+        //     editable : false
+        // });
+    }
+    
+    saveData(){
+        // axios.post('http://localhost:3001/saveData', data)
+        //     .then((response) => {
+        //         console.log(response.data);
+        //         var newData = response.data;
+        //         this.setState({
+        //             journey: newData.journey
+        //         })
+    
+        //     }); 
+        console.log(this.state.journey);
+    }
+
+    journeyChangeHandler = (e) => {
+        this.setState({
+            journey: e.target.value
+        })
+        console.log(this.state.journey);
     }
     
     componentDidMount(){
         this.setState({
             flag : 2
         })
-        this.props.fetchprofileAction((JSON.parse(localStorage.getItem("loggedInUser"))).EmailId);
+        // this.props.fetchprofileAction((JSON.parse(localStorage.getItem("loggedInUser"))).EmailId);
         this.getData();
     }
     async getData() {
@@ -60,12 +88,13 @@ class Profile extends Component {
             }
             axios.post('http://localhost:3001/getProfileData', data)
             .then((response) => {
+                console.log(response.data);
                 var newData = response.data;
                 this.setState({
-                    journey: newData.data[0].Journey
+                    journey: newData.journey
                 })
     
-            });
+            }); 
 
             await this.props.fetchprofileAction({
                 journey: this.state.journey,
@@ -73,8 +102,6 @@ class Profile extends Component {
 
         }    
     }
-
-    
 
     render() {
         let style = {width: "148px"}
@@ -102,12 +129,18 @@ class Profile extends Component {
                     </Card>
 
                     <Card title="My Journey" style={{display: 'inline-block', verticalAlign:'top', marginTop:'30px', marginLeft: '30px', width: '494px', height: '580px'}}>
-                    <Button icon="pi pi-pencil" onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'990px', top:'120px'}} />
-                        <div> {this.state.journey}</div>
+                    <Button active='true' icon="pi pi-pencil" onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'990px', top:'120px'}} />
+                        <div contentEditable={this.state.editable} onChange={this.journeyChangeHandler}> {this.state.journey}</div>
+                       {this.state.editable ? 
+                       <div>
+                       <Button active='true' label="Cancel" className="p-button-danger" onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'730px', top:'620px'}} /> 
+                        <Button active='true' onClick={this.saveData} label='Save' onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'650px', top:'620px'}} /> </div> :
+                       null
+                    } 
                     </Card>
 
                     <Card title="Advanced Card" subTitle="Subtitle" style={{position:'absolute', top:'380px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+                        <div contentEditable="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
                             quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
                     </Card>
 
