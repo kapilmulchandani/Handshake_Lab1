@@ -2,7 +2,9 @@
 import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
+import {InputTextarea} from 'primereact/inputtextarea';
 
+import '../../styles/profile.css';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
@@ -18,7 +20,8 @@ import axios from 'axios';
 // import { profileAction } from '../../actions/profileAction'
 import PropTypes from 'prop-types'
 import { Redirect } from 'react-router';
-import { fetchprofileAction } from '../../actions/profileAction'
+import { fetchprofileAction } from '../../actions/profileAction';
+
 
 class Profile extends Component {
     constructor(props) {
@@ -29,17 +32,30 @@ class Profile extends Component {
             editable:false,
             flag : 1,
             journey : '',
-            education: ''
+            education: '',
+            workExp: '',
+            orgAchieve: '',
+            skills: '',
+            mobile_number: 99211
+
         };
         this.getData.bind(this);
         this.journeyChangeHandler.bind(this);
     }
+    //EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number
     
+    handleEditButtonClick = (e) => {
+        this.setState({
+            editable : true
+        });
+    }
+
     handleJourneyEdit = async (e) => {
         e.preventDefault();
         // console.log('Helloooo');
         this.setState({
-            editable : true
+            editable : true,
+            journey: e.target.value
         });
         // const journeyNew = prompt('Please Update Journey: ');
         // console.log('Woaaah', journeyNew);
@@ -52,24 +68,42 @@ class Profile extends Component {
         // this.setState({
         //     editable : false
         // });
+        // alert(e.target.textContent);
     }
     
-    saveData(){
-        // axios.post('http://localhost:3001/saveData', data)
-        //     .then((response) => {
-        //         console.log(response.data);
-        //         var newData = response.data;
-        //         this.setState({
-        //             journey: newData.journey
-        //         })
-    
-        //     }); 
-        console.log(this.state.journey);
+    saveData = (e) => {
+        // this.handleJourneyEdit();
+        const data = {
+            emailData : this.state.EmailId,
+            journeyData : this.state.journey,
+            educationData: this.state.education,
+            workExpData: this.state.workExp,
+            orgAchieveData: this.state.orgAchieve,
+            skillsData: this.state.skills,
+            mobile_numberData: this.state.mobile_number
+
+        }
+        axios.post('http://localhost:3001/save', data)
+            .then((response) => {
+                // console.log(response.data);
+
+            }); 
+        this.setState({
+            editable : false,
+        });
+        
+        // console.log(this.state.journey);
+    }
+
+    cancelButton = (e) => {
+        this.setState({
+            editable : false
+        })
     }
 
     journeyChangeHandler = (e) => {
         this.setState({
-            journey: e.target.value
+            journey: e.target.textContent
         })
         console.log(this.state.journey);
     }
@@ -81,6 +115,7 @@ class Profile extends Component {
         // this.props.fetchprofileAction((JSON.parse(localStorage.getItem("loggedInUser"))).EmailId);
         this.getData();
     }
+
     async getData() {
         if(this.state.flag == 1){
             const data = {
@@ -91,7 +126,12 @@ class Profile extends Component {
                 console.log(response.data);
                 var newData = response.data;
                 this.setState({
-                    journey: newData.journey
+                    journey: newData.journey,
+                    education: newData.education,
+                    workExp: newData.workExp,
+                    orgAchieve: newData.orgAchieve,
+                    skills: newData.skills,
+                    mobile_number: newData.mobile_number
                 })
     
             }); 
@@ -115,7 +155,6 @@ class Profile extends Component {
             </span>
         );
         return (
-            
             <div>
                 {/* <Background /> */}
                 <Navbar />
@@ -129,15 +168,18 @@ class Profile extends Component {
                     </Card>
 
                     <Card title="My Journey" style={{display: 'inline-block', verticalAlign:'top', marginTop:'30px', marginLeft: '30px', width: '494px', height: '580px'}}>
-                    <Button active='true' icon="pi pi-pencil" onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'990px', top:'120px'}} />
-                        <div contentEditable={this.state.editable} onChange={this.journeyChangeHandler}> {this.state.journey}</div>
-                       {this.state.editable ? 
-                       <div>
-                       <Button active='true' label="Cancel" className="p-button-danger" onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'730px', top:'620px'}} /> 
-                        <Button active='true' onClick={this.saveData} label='Save' onClick={this.handleJourneyEdit} style={{position: 'absolute', left:'650px', top:'620px'}} /> </div> :
-                       null
-                    } 
+                    <Button active='true' onClick={this.handleEditButtonClick} icon="pi pi-pencil" style={{position: 'absolute', left:'990px', top:'110px'}} />
+                    {/* <input type="text" onChange={this.handleJourneyEdit} value={this.state.journey} autoFocus={true}
+                    disabled = {(this.state.editable)? "" : "disabled"} style={{ textAlignVertical: 'top', whiteSpace: 'unset', height: '480px'}} />  */}
+                        {/* <div class="journeyDiv" onClick={this.handleJourneyEdit} contentEditable={this.state.editable} suppressContentEditableWarning="true" onChange={this.journeyChangeHandler}> {this.state.journey}</div> */}
+                        <InputTextarea class='inputTexthello' rows={20} cols={55} onChange={this.handleJourneyEdit} disabled = {(this.state.editable)? "" : "disabled"} value={this.state.journey} autoResize={true}></InputTextarea>    
                     </Card>
+                    {this.state.editable ? 
+                       <div>
+                       <Button label="Cancel" onClick={this.cancelButton} className="p-button-danger"  style={{position: 'absolute', left:'730px', top:'620px'}} /> 
+                        <Button  onClick={this.saveData} label='Save'style={{position: 'absolute', left:'650px', top:'620px'}} /> </div> :
+                       null
+                    }
 
                     <Card title="Advanced Card" subTitle="Subtitle" style={{position:'absolute', top:'380px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
                         <div contentEditable="true">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
@@ -147,19 +189,16 @@ class Profile extends Component {
 
                     <Card title="Education" style={{position:'absolute', left:'340px', top:'680px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '484px', height: '580px'}}> 
                     <Button icon="pi pi-pencil" style={{position:'absolute', left:'440px', bottom:'535px'}} />
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
+                        <div>{this.state.education}</div>
                     </Card>
 
-                    <Card title="Advanced Card" subTitle="Subtitle" style={{position:'absolute', top:'980px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
+                    <Card title="Skills" subTitle="Subtitle" style={{position:'absolute', top:'980px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
+                        <div>{this.state.skills}</div>
                     </Card>
 
                     <Card title="Work & Volunteer Experience" style={{position:'absolute', left:'340px', top:'1280px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '484px', height: '580px'}}>
                     <Button icon="pi pi-pencil" style={{position:'absolute', left:'440px', bottom:'535px'}} />
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
+                        <div>{this.state.workExp}</div>
                     </Card>
 
                     <Card title="Advanced Card" subTitle="Subtitle" style={{position:'absolute', top:'1580px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
@@ -169,8 +208,7 @@ class Profile extends Component {
 
                     <Card title="Organizations & Extracurriculars" style={{position:'absolute', left:'340px', top:'1880px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '484px', height: '580px'}}>
                     <Button icon="pi pi-pencil" float='right' />
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
+                        <div>{this.state.orgAchieve}</div>
                     </Card>
                     
                     

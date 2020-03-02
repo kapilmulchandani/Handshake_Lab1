@@ -12,7 +12,7 @@ var mysql = require('mysql');
 const connection = mysql.createConnection({
     host: 'localhost',
     user:'root',
-    password:'1234',//password of your mysql db
+    password:'kapil123',//password of your mysql db
     database:'Students'
     });
 
@@ -56,7 +56,7 @@ app.post('/login',function(req,resp){
         console.log(req.body.EmailIdData);
         console.log(req.body.PasswordData);
         console.log("Connected!");
-        var sql = "select * from student_info where EmailId='"+req.body.EmailIdData+"' and Password='"+req.body.PasswordData+"';";
+        var sql = "select * from students_info where EmailId='"+req.body.EmailIdData+"' and Password='"+req.body.PasswordData+"';";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             if(result.length == 1){
@@ -101,8 +101,7 @@ app.post('/getProfileData',function(req,resp){
     console.log("Inside Profile Data Request");
         // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
         // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
-        var sql = "SELECT * FROM Student_Details where EmailId='"+req.body.EmailIdData+"';";
-        console.log(req.body.EmailIdData);
+        var sql = "SELECT * FROM students_details where EmailId='"+req.body.EmailIdData+"';";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             if(result.length == 1){
@@ -111,7 +110,12 @@ app.post('/getProfileData',function(req,resp){
                 });
                 resp.end(JSON.stringify({
                     EmailId: result[0].EmailId,
-                    journey: result[0].Journey
+                    journey: result[0].Journey,
+                    education: result[0].Education,
+                    workExp: result[0].WorkExp,
+                    orgAchieve: result[0].OrgAchieve,
+                    skills: result[0].Skills,
+                    mobile_number: result[0].Mobile_Number
                 }));
         }
         });
@@ -121,17 +125,17 @@ app.post('/getProfileData',function(req,resp){
 app.post('/signup', function(req,res){
         console.log("Inside Post SignUp Function");
         // console.log(req.body);
-        console.log("Connected!");
-        var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
-        var sql2 = "INSERT INTO student_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
+        // console.log("Connected!");
+        var sql = "INSERT INTO students_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+        var sql2 = "INSERT INTO students_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
         connection.query(sql, function (err, result) {
             if (err) throw err;
-            console.log("1 record inserted");
+            // console.log("1 record inserted");
             // res.end("Successful_Insertion");
         });
         connection.query(sql2, function (err, result) {
             if (err) throw err;
-            console.log("2nd table insertion done");
+            // console.log("2nd table insertion done");
             res.end("Successful_Insertion");
         });
 });
@@ -139,12 +143,11 @@ app.post('/signup', function(req,res){
 app.post('/update', function(req,res){
     console.log("Inside Post SignUp Function");
     // console.log(req.body);
-    console.log("Connected!");
-    var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
-    var sql2 = "INSERT INTO student_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
+    var sql = "INSERT INTO students_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+    var sql2 = "INSERT INTO students_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
     connection.query(sql, function (err, result) {
         if (err) throw err;
-        console.log("1 record inserted");
+        // console.log("1 record inserted");
         // res.end("Successful_Insertion");
     });
     connection.query(sql2, function (err, result) {
@@ -154,8 +157,13 @@ app.post('/update', function(req,res){
     });
 });
 
-app.post('/delete', function(req,res){
-   
+app.post('/save', function(req,res){
+   var sql = "UPDATE students_details SET Journey = '" + req.body.journeyData + "', Education = '" + req.body.educationData+ "', WorkExp = '" + req.body.workExpData+ "',OrgAchieve = '" + req.body.orgAchieveData+"', Skills = '"+req.body.skillsData+"', Mobile_Number = "+req.body.mobile_numberData+" WHERE EmailId = '"+req.body.emailData+"';";
+   connection.query(sql, function (err, result) {
+    if (err) throw err;
+    // console.log("1 record inserted");
+    res.end("Successful_Updation");
+});
 });
 
 
