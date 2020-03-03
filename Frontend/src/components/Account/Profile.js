@@ -29,7 +29,11 @@ class Profile extends Component {
         this.state = {
             EmailId: JSON.parse(localStorage.getItem("loggedInUser")).EmailId,
             data : null,
-            editable:false,
+            journeyeditable:false,
+            educationeditable:false,
+            workExpeditable:false,
+            orgAchieveeditable:false,
+            journeyeditable:false,
             flag : 1,
             journey : '',
             education: '',
@@ -44,31 +48,60 @@ class Profile extends Component {
     }
     //EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number
     
-    handleEditButtonClick = (e) => {
+    handleJourneyEditButtonClick = (e) => {
         this.setState({
-            editable : true
+            journeyeditable : true
+        });
+    }
+
+    handleEducationEditButtonClick = (e) => {
+        this.setState({
+            educationeditable : true
+        });
+    }
+
+    handleWorkExpEditButtonClick = (e) => {
+        this.setState({
+            workExpeditable : true
+        });
+    }
+
+    handleorgAchieveEditButtonClick = (e) => {
+        this.setState({
+            orgAchieveeditable : true
         });
     }
 
     handleJourneyEdit = async (e) => {
         e.preventDefault();
-        // console.log('Helloooo');
         this.setState({
             editable : true,
             journey: e.target.value
         });
-        // const journeyNew = prompt('Please Update Journey: ');
-        // console.log('Woaaah', journeyNew);
-        // this.props.fetchprofileAction({
-        //     ...this.state,
-        //     journey: journeyNew 
-        // })
+    }
 
-        // console.log('JOURNEY', this.state.journey);
-        // this.setState({
-        //     editable : false
-        // });
-        // alert(e.target.textContent);
+    handleEducationEdit = async (e) => {
+        e.preventDefault();
+        this.setState({
+            editable : true,
+            education: e.target.value
+        });
+    }
+
+    handleWorkExpEdit = async (e) => {
+        e.preventDefault();
+        this.setState({
+            editable : true,
+            workExp: e.target.value
+        });
+    }
+
+    handleOrgAchieveEdit = async (e) => {
+        e.preventDefault();
+        this.setState({
+            editable : true,
+            orgAchieve: e.target.value
+        });
     }
     
     saveData = (e) => {
@@ -97,7 +130,11 @@ class Profile extends Component {
 
     cancelButton = (e) => {
         this.setState({
-            editable : false
+            journeyeditable:false,
+            educationeditable:false,
+            workExpeditable:false,
+            orgAchieveeditable:false,
+            journeyeditable:false,
         })
     }
 
@@ -112,7 +149,6 @@ class Profile extends Component {
         this.setState({
             flag : 2
         })
-        // this.props.fetchprofileAction((JSON.parse(localStorage.getItem("loggedInUser"))).EmailId);
         this.getData();
     }
 
@@ -168,13 +204,10 @@ class Profile extends Component {
                     </Card>
 
                     <Card title="My Journey" style={{display: 'inline-block', verticalAlign:'top', marginTop:'30px', marginLeft: '30px', width: '494px', height: '580px'}}>
-                    <Button active='true' onClick={this.handleEditButtonClick} icon="pi pi-pencil" style={{position: 'absolute', left:'990px', top:'110px'}} />
-                    {/* <input type="text" onChange={this.handleJourneyEdit} value={this.state.journey} autoFocus={true}
-                    disabled = {(this.state.editable)? "" : "disabled"} style={{ textAlignVertical: 'top', whiteSpace: 'unset', height: '480px'}} />  */}
-                        {/* <div class="journeyDiv" onClick={this.handleJourneyEdit} contentEditable={this.state.editable} suppressContentEditableWarning="true" onChange={this.journeyChangeHandler}> {this.state.journey}</div> */}
-                        <InputTextarea class='inputTexthello' rows={20} cols={55} onChange={this.handleJourneyEdit} disabled = {(this.state.editable)? "" : "disabled"} value={this.state.journey} autoResize={true}></InputTextarea>    
+                    <Button active='true' onClick={this.handleJourneyEditButtonClick} icon="pi pi-pencil" style={{position: 'absolute', left:'990px', top:'110px'}} />
+                    <InputTextarea class='inputTexthello' rows={20} cols={55} onChange={this.handleJourneyEdit} disabled = {(this.state.editable)? "" : "disabled"} value={this.state.journey} autoResize={true}></InputTextarea>    
                     </Card>
-                    {this.state.editable ? 
+                    {this.state.journeyeditable ? 
                        <div>
                        <Button label="Cancel" onClick={this.cancelButton} className="p-button-danger"  style={{position: 'absolute', left:'730px', top:'620px'}} /> 
                         <Button  onClick={this.saveData} label='Save'style={{position: 'absolute', left:'650px', top:'620px'}} /> </div> :
@@ -188,18 +221,30 @@ class Profile extends Component {
 
 
                     <Card title="Education" style={{position:'absolute', left:'340px', top:'680px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '484px', height: '580px'}}> 
-                    <Button icon="pi pi-pencil" style={{position:'absolute', left:'440px', bottom:'535px'}} />
-                        <div>{this.state.education}</div>
+                    <Button active='true' onClick={this.handleEducationEditButtonClick} icon="pi pi-pencil" style={{position: 'absolute', left:'440px', top:'5px'}} />
+                    <InputTextarea class='inputTexthello' rows={20} cols={55} onChange={this.handleEducationEdit} disabled = {(this.state.editable)? "" : "disabled"} value={this.state.education} autoResize={true}></InputTextarea>
                     </Card>
+                    {this.state.educationeditable ? 
+                       <div>
+                       <Button label="Cancel" onClick={this.cancelButton} className="p-button-danger"  style={{position: 'absolute', left:'720px', top:'1220px'}} /> 
+                        <Button  onClick={this.saveData} label='Save'style={{position: 'absolute', left:'640px', top:'1220px'}} /> </div> :
+                       null
+                    }
 
                     <Card title="Skills" subTitle="Subtitle" style={{position:'absolute', top:'980px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
                         <div>{this.state.skills}</div>
                     </Card>
 
                     <Card title="Work & Volunteer Experience" style={{position:'absolute', left:'340px', top:'1280px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '484px', height: '580px'}}>
-                    <Button icon="pi pi-pencil" style={{position:'absolute', left:'440px', bottom:'535px'}} />
-                        <div>{this.state.workExp}</div>
+                    <Button active='true' onClick={this.handleWorkExpEditButtonClick} icon="pi pi-pencil" style={{position: 'absolute', left:'440px', top:'5px'}} />
+                    <InputTextarea class='inputTexthello' rows={20} cols={55} onChange={this.handleWorkExpEdit} disabled = {(this.state.editable)? "" : "disabled"} value={this.state.workExp} autoResize={true}></InputTextarea>
                     </Card>
+                    {this.state.workExpeditable ? 
+                       <div>
+                       <Button label="Cancel" onClick={this.cancelButton} className="p-button-danger"  style={{position: 'absolute', left:'730px', top:'620px'}} /> 
+                        <Button  onClick={this.saveData} label='Save'style={{position: 'absolute', left:'650px', top:'620px'}} /> </div> :
+                       null
+                    }
 
                     <Card title="Advanced Card" subTitle="Subtitle" style={{position:'absolute', top:'1580px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '304px', height: '580px'}} className="ui-card-shadow" footer={footer} header={header}>
                         <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
@@ -207,9 +252,15 @@ class Profile extends Component {
                     </Card>
 
                     <Card title="Organizations & Extracurriculars" style={{position:'absolute', left:'340px', top:'1880px', float: 'left', marginTop:'30px', marginLeft: '210px', width: '484px', height: '580px'}}>
-                    <Button icon="pi pi-pencil" float='right' />
-                        <div>{this.state.orgAchieve}</div>
+                    <Button active='true' onClick={this.handleOrgAchieveEditButtonClick} icon="pi pi-pencil" style={{position: 'absolute', left:'440px', top:'5px'}} />
+                    <InputTextarea class='inputTexthello' rows={20} cols={55} onChange={this.handleOrgAchieveEdit} disabled = {(this.state.editable)? "" : "disabled"} value={this.state.orgAchieve} autoResize={true}></InputTextarea>
                     </Card>
+                    {this.state.orgAchieveeditable ? 
+                       <div>
+                       <Button label="Cancel" onClick={this.cancelButton} className="p-button-danger"  style={{position: 'absolute', left:'730px', top:'620px'}} /> 
+                        <Button  onClick={this.saveData} label='Save'style={{position: 'absolute', left:'650px', top:'620px'}} /> </div> :
+                       null
+                    }
                     
                     
                     <br/><br/>
