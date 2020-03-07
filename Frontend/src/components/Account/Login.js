@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import {InputText} from 'primereact/inputtext';
-import {Button} from 'primereact/button';
+import { InputText } from 'primereact/inputtext';
+import { Button } from 'primereact/button';
 import { loginAction } from '../../actions/loginAction'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
+import { Card } from 'primereact/card';
 // import '../../styles/login.css';
 
 class Login extends Component {
@@ -17,14 +18,9 @@ class Login extends Component {
         }
     }
 
-    emailIDChangeHandler = (e) => {
+    onChangeHandler = (e) => {
         this.setState({
-            EmailId: e.target.value
-        })
-    }
-    passwordChangeHandler = (e) => {
-        this.setState({
-            Password: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -64,30 +60,46 @@ class Login extends Component {
             invalidCredentials = <p className="alert alert-danger error-message">{this.props.loginResponse.message}</p>
         }
         return (
-            <div>
-                {localStorage.getItem("loggedInUser") ? <Redirect to="/profile" /> : ""}
-                <div class="okta-sign-in-header" style={{position: 'absolute', top:'100px', left: '1240px'}}>
-                    <img src="https://ok2static.oktacdn.com/fs/bco/1/fs01heub3azJBMXWF0x7" class="auth-org-logo" alt="San Jose State University logo" />
-                    <div data-type="beacon-container" class="beacon-container">
-                    </div>
+            <div class="divMid" className="my-4 row" style={{ width: '400px', height:'400px', margin: 'auto' }}>
+                 <div className="row" style={{ position:'relative', width: '400px', margin: 'auto' }}>
+                     
+                            <img src="https://ok2static.oktacdn.com/fs/bco/1/fs01heub3azJBMXWF0x7" class="auth-org-logo" alt="San Jose State University logo" />
+                    
                 </div>
-                <div>{invalidCredentials}</div>
-                <span className="p-float-label" style={{position: 'absolute', top:'240px', left: '590px'}}>
-                    <InputText id="float-input" type="text" size="30" value={this.state.EmailId} onChange={(e) => this.setState({EmailId: e.target.value})} />
-                    <label htmlFor="float-input">Email-Id</label>
-                </span>
-                <span className="p-float-label" style={{position: 'absolute', top:'310px', left: '590px'}}>
-                    <InputText id="float-input" type="password" size="30" value={this.state.Password} onChange={(e) => this.setState({Password: e.target.value})} />
-                    <label htmlFor="float-input">Password</label>
-                </span>
-                
-                <Button label="Sign In" onClick={this.submitLogin} style={{position: 'absolute', top:'370px', left: '690px'}} />
+
+                <div className="row">
+                <Card title="">
+                    {localStorage.getItem("loggedInUser") ? <Redirect to="/profile" /> : ""}
+                    {/* <div className="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 login-dashboard"> */}
+                    <div className="col-md-5 col-md-offset-4  login-dashboard">
+                       
+                        <div className="row">
+                            <div>{invalidCredentials}</div>
+                        </div>
+
+                        <form>
+                            <div className="row">
+                                <label htmlFor="float-input">Email-Id</label>
+                                <InputText name="EmailId" id="float-input" type="text" size="30" value={this.state.EmailId} onChange={this.onChangeHandler} />
+
+                            </div>
+                            <div className="row">
+                                <label htmlFor="float-input">Password</label>
+                                <InputText name="Password" id="float-input" type="password" size="30" value={this.state.Password} onChange={this.onChangeHandler} />
+                            </div>
+                            <div className="row">
+                                <Button label="Sign In" onClick={this.submitLogin} />
+                            </div>
+                        </form>
+                    </div>
+                </Card>
+                </div>
             </div>
-                )
-            }
-        
-        }
-        
+        )
+    }
+
+}
+
 const mapStateToProps = (state) => ({
     loginResponse: state.loginReducer.loginResponse,
 })

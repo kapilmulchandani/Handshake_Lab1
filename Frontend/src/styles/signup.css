@@ -1,23 +1,24 @@
-.signUpimage {
-    width: 100%;  /* Or whatever */
-    height: 100%; /* Or whatever */
-    position: absolute;
-    margin-right: -360px; /* Magic! */
-    margin-top: -60px;
-}
-
-.left-half {
-    background-color: #1569e0;
-    position: absolute;
-    left: 0px;
-    width: 30%;
+/* .signUpimage {
+    width: 100%; 
     height: 100%;
+     position: absolute;
+    margin-right: -360px; 
+    margin-top: -60px; 
+    background-size: 50% 100%;
+} */
+
+.col-md-4 {
+      background-image: url('./handshakeSignUp.png');
+      background-repeat: no-repeat;
+      height: 950px;
+      /* background-size:80% 180%; */
+      /* background-position: left top, right top; */
   }
   
 .right-half {
     background-color: #fff;;
-    position: absolute;
-    right: 0px;
+    /* position: absolute; */
+    /* right: 0px; */
     width: 70%;
     height: 100%;
   }
@@ -29,6 +30,7 @@
     font-weight: 700;
     margin-bottom: 16px!important;
     color: #000;
+    text-align: center;
     margin-left: 300px;
     position: absolute;
     
@@ -41,6 +43,7 @@
   font-weight: 300;
   margin-bottom: 16px!important;
   color: #000;
+  text-align: center;
   margin-left: 300px;
   margin-top: 80px;
   position: absolute;
@@ -57,12 +60,11 @@ input[type=text], input[type=password], input[type=number] {
   width: 300px;
   padding: 15px;
   margin: 5px 0 22px 0;
-  /* display: inline-block; */
   border: none;
   background: #f1f1f1;
 }
 
- .firstName {
+.firstName {
   position: absolute;;
   top:20px;
   right: px;

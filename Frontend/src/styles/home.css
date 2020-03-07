@@ -21,12 +21,18 @@
     height: 100%;
   }
 
-img {
+.handshake_img {
     top: 40px;
     margin-right: auto;
     position: absolute;
     right: 360px;
     /* width: 65%; */
+  }
+  .institution-logo {
+    top: 40px;
+    margin-right: auto;
+    position: absolute;
+    right: 360px;
   }
 
 .marketing-title {

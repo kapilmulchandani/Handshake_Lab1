@@ -5,6 +5,10 @@ var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var cors = require('cors');
 app.set('view engine', 'ejs');
+
+const path = require("path");
+const multer = require("multer");
+
 const router = express.Router();
 //MySQL config
 
@@ -13,7 +17,7 @@ const connection = mysql.createConnection({
     host: 'localhost',
     user:'root',
     password:'kapil123',//password of your mysql db
-    database:'Students'
+    database:'handshake_schema'
     });
 
 connection.connect(function(err) {
@@ -56,7 +60,7 @@ app.post('/login',function(req,resp){
         console.log(req.body.EmailIdData);
         console.log(req.body.PasswordData);
         console.log("Connected!");
-        var sql = "select * from students_info where EmailId='"+req.body.EmailIdData+"' and Password='"+req.body.PasswordData+"';";
+        var sql = "select * from student_info where emailid='"+req.body.EmailIdData+"' and password='"+req.body.PasswordData+"';";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             if(result.length == 1){
@@ -67,7 +71,7 @@ app.post('/login',function(req,resp){
                 resp.end(JSON.stringify({
                     success: true,
                     message: "Successfull",
-                    EmailId: result[0].EmailId
+                    EmailId: result[0].emailid
                 }));
             }
             else{
@@ -101,7 +105,7 @@ app.post('/getProfileData',function(req,resp){
     console.log("Inside Profile Data Request");
         // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
         // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
-        var sql = "SELECT * FROM students_details where EmailId='"+req.body.EmailIdData+"';";
+        var sql = "SELECT * FROM student_details where emailid='"+req.body.EmailIdData+"';";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             if(result.length == 1){
@@ -109,13 +113,13 @@ app.post('/getProfileData',function(req,resp){
                     'Content-Type': 'application/json'
                 });
                 resp.end(JSON.stringify({
-                    EmailId: result[0].EmailId,
-                    journey: result[0].Journey,
-                    education: result[0].Education,
-                    workExp: result[0].WorkExp,
-                    orgAchieve: result[0].OrgAchieve,
-                    skills: result[0].Skills,
-                    mobile_number: result[0].Mobile_Number
+                    EmailId: result[0].emailid,
+                    journey: result[0].journey,
+                    education: result[0].education,
+                    workExp: result[0].work_exp,
+                    orgAchieve: result[0].org_achieve,
+                    skills: result[0].skills,
+                    mobile_number: result[0].mobile_number
                 }));
         }
         });
@@ -126,8 +130,8 @@ app.post('/signup', function(req,res){
         console.log("Inside Post SignUp Function");
         // console.log(req.body);
         // console.log("Connected!");
-        var sql = "INSERT INTO students_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
-        var sql2 = "INSERT INTO students_details (EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
+        var sql = "INSERT INTO student_info (first_name, last_name, emailid, college_name, password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+        var sql2 = "INSERT INTO student_details (emailid, city, dob, journey, education, work_exp, org_achieve, skills, mobile_number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             // console.log("1 record inserted");
@@ -158,7 +162,7 @@ app.post('/update', function(req,res){
 });
 
 app.post('/save', function(req,res){
-   var sql = "UPDATE students_details SET Journey = '" + req.body.journeyData + "', Education = '" + req.body.educationData+ "', WorkExp = '" + req.body.workExpData+ "',OrgAchieve = '" + req.body.orgAchieveData+"', Skills = '"+req.body.skillsData+"', Mobile_Number = "+req.body.mobile_numberData+" WHERE EmailId = '"+req.body.emailData+"';";
+   var sql = "UPDATE student_details SET journey = '" + req.body.journeyData + "', education = '" + req.body.educationData+ "', work_exp = '" + req.body.workExpData+ "',org_achieve = '" + req.body.orgAchieveData+"', skills = '"+req.body.skillsData+"', mobile_number = "+req.body.mobile_numberData+" WHERE emailid = '"+req.body.emailData+"';";
    connection.query(sql, function (err, result) {
     if (err) throw err;
     // console.log("1 record inserted");
@@ -166,9 +170,33 @@ app.post('/save', function(req,res){
 });
 });
 
+const storage = multer.diskStorage({
+    destination: "../../public/uploads/",
+    filename: function(req, file, cb){
+       cb(null,"IMAGE-" + Date.now() + path.extname(file.originalname));
+    }
+ });
+
+ let upload = multer({
+    storage: storage,
+    limits:{fileSize: 1000000},
+ });
+
 
 app.get('/create', function(req,res){
+    console.log("Request ---", req.body);
+    console.log("Request file ---", req.file);//Here you get file.
+       
+});
 
+app.post('/upload', upload.single('myImage'), function(req, res){
+    console.log("Request ---", req.body);
+    console.log("Request file ---", req.file);//Here you get file.
+    res.end(JSON.stringify({
+        success: true,
+        message: "profile updated",
+        profilefilepath: req.file.filename
+    }))
 });
 
 
