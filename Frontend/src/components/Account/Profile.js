@@ -60,37 +60,45 @@ class Profile extends Component {
         })
     }
 
-    handleJourneyEdit = async (e) => {
+    handleEdit = (e) => {
         e.preventDefault();
         this.setState({
             editable: true,
-            journey: e.target.value
-        });
+            [e.target.name]: e.target.value
+        })
     }
 
-    handleEducationEdit = async (e) => {
-        e.preventDefault();
-        this.setState({
-            editable: true,
-            education: e.target.value
-        });
-    }
+    // handleJourneyEdit = async (e) => {
+    //     e.preventDefault();
+    //     this.setState({
+    //         editable: true,
+    //         journey: e.target.value
+    //     });
+    // }
 
-    handleWorkExpEdit = async (e) => {
-        e.preventDefault();
-        this.setState({
-            editable: true,
-            workExp: e.target.value
-        });
-    }
+    // handleEducationEdit = async (e) => {
+    //     e.preventDefault();
+    //     this.setState({
+    //         editable: true,
+    //         education: e.target.value
+    //     });
+    // }
 
-    handleOrgAchieveEdit = async (e) => {
-        e.preventDefault();
-        this.setState({
-            editable: true,
-            orgAchieve: e.target.value
-        });
-    }
+    // handleWorkExpEdit = async (e) => {
+    //     e.preventDefault();
+    //     this.setState({
+    //         editable: true,
+    //         workExp: e.target.value
+    //     });
+    // }
+
+    // handleOrgAchieveEdit = async (e) => {
+    //     e.preventDefault();
+    //     this.setState({
+    //         editable: true,
+    //         orgAchieve: e.target.value
+    //     });
+    // }
 
     onProfilePicChange = (e) => {
         this.setState({ file: e.target.files[0] });
@@ -146,7 +154,8 @@ class Profile extends Component {
             educationeditable: false,
             workExpeditable: false,
             orgAchieveeditable: false
-        })
+        });
+        this.forceUpdate();
     }
 
     journeyChangeHandler = (e) => {
@@ -234,7 +243,7 @@ class Profile extends Component {
 
                         </div>
                         <div className='mx-3 mb-3 row'>
-                            <InputTextarea rows={20} cols={55} onChange={this.handleJourneyEdit} disabled={(this.state.journeyeditable) ? "" : "disabled"} value={this.state.journey} autoResize={true}></InputTextarea>
+                            <InputTextarea name="journey" rows={20} cols={55} onChange={this.handleEdit} disabled={(this.state.journeyeditable) ? "" : "disabled"} value={this.state.journey} autoResize={true}></InputTextarea>
                         </div>
                         {this.state.journeyeditable ?
                             <div className="row">
@@ -265,7 +274,7 @@ class Profile extends Component {
                             </div>
                         </div>
                         <div className='mx-3 mb-3 row'>
-                            <InputTextarea rows={20} cols={55} onChange={this.handleEducationEdit} disabled={(this.state.educationeditable) ? "" : "disabled"} value={this.state.education} autoResize={true}></InputTextarea>
+                            <InputTextarea name="education" rows={20} cols={55} onChange={this.handleEdit} disabled={(this.state.educationeditable) ? "" : "disabled"} value={this.state.education} autoResize={true}></InputTextarea>
                         </div>
                         {this.state.educationeditable ?
                             <div className="row">
@@ -294,7 +303,7 @@ class Profile extends Component {
                             </div>
                         </div>
                         <div className='mx-3 mb-3 row'>
-                            <InputTextarea rows={20} cols={55} onChange={this.handleWorkExpEdit} disabled={(this.state.workExpeditable) ? "" : "disabled"} value={this.state.education} autoResize={true}></InputTextarea>
+                            <InputTextarea name="workExp" rows={20} cols={55} onChange={this.handleEdit} disabled={(this.state.workExpeditable) ? "" : "disabled"} value={this.state.workExp} autoResize={true}></InputTextarea>
                         </div>
                         {this.state.workExpeditable ?
                             <div className="row">
@@ -324,7 +333,7 @@ class Profile extends Component {
                             </div>
                         </div>
                         <div className='mx-3 mb-3 row'>
-                            <InputTextarea rows={20} cols={55} onChange={this.handleOrgAchieveEdit} disabled={(this.state.orgAchieveeditable) ? "" : "disabled"} value={this.state.education} autoResize={true}></InputTextarea>
+                            <InputTextarea name="orgAchieve" rows={20} cols={55} onChange={this.handleEdit} disabled={(this.state.orgAchieveeditable) ? "" : "disabled"} value={this.state.orgAchieve} autoResize={true}></InputTextarea>
                         </div>
                         {this.state.orgAchieveeditable ?
                             <div className="row">

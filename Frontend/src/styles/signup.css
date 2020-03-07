@@ -10,10 +10,10 @@
 .col-md-4 {
       background-image: url('./handshakeSignUp.png');
       background-repeat: no-repeat;
-      height: 950px;
+      height: 650px; 
       /* background-size:80% 180%; */
-      /* background-position: left top, right top; */
-  }
+      /* background-position: left top, right top;
+}
   
 .right-half {
     background-color: #fff;;

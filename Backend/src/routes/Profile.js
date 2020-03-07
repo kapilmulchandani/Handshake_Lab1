@@ -53,8 +53,7 @@ connection.connect(function(err) {
 
 
   router.post('/getProfileData',function(req,resp){    
-    // console.log(req);
-    console.log("Inside Profile Data Request");
+
         // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
         // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
         var sql = "SELECT * FROM student_details where emailid='"+req.body.EmailIdData+"';";
