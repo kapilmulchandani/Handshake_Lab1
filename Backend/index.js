@@ -5,7 +5,8 @@ let cookieParser = require('cookie-parser');
 let cors = require('cors');
 let expressValidator = require("express-validator");
 
-let login = require("./route/login");
+let account = require("./src/routes/Account");
+let profile = require("./src/routes/Profile");
 
 let app = express();
 
@@ -35,8 +36,9 @@ app.use(function(req, res, next) {
     next();
   });
 
-app.use(expressValidator())
-app.use("/login", login);
+// app.use(expressValidator())
+app.use("/", account);
+app.use("/", profile);
 
 let server = app.listen(3001, function () {
     console.log("Server listening on port 3001");

@@ -96,38 +96,42 @@ class SignUp extends Component {
                     {/* <img src={handshakeSignUp}></img> */}
                 </div>
                 <div class="right-half" className="col-md-8">
+                    <div style={{position:'absolute', top:0, right:20}}>
+                        Are you a company?
+                        <b><a href="/signup"> Sign up here.</a></b>
+                    </div>
                     <h1 class="style_heading" >Let's find your next job</h1>
 
                     <div class="style__text">Join Handshake's community of students, <br></br>schools, and employers to find internships,<br></br> land a job, and more.
                     </div>
-                    
-                <form class="signUpForm" action='action_page.php' style={{border:'1px' , color: 'solid #ccc'}}>
-                    <div class="containerNew">
-                        
-                        <label for="firstName"><b>First Name</b></label> <br />
-                        <input class="firstName" onChange = {this.firstNameChangeHandler} type="text" placeholder="First Name" name="firstName" required /> <br />
 
-                        <label class="labelLastName" for="lastName"><b>Last Name</b></label> <br />
-                        <input class="lastName" onChange = {this.lastNameChangeHandler} type="text" placeholder="Last Name" name="lastName" required /> <br />
+                    <form class="signUpForm" action='action_page.php' style={{ border: '1px', color: 'solid #ccc' }}>
+                        <div class="containerNew">
 
-                        <label for="college"><b>College</b></label><br />
-                        <input type="text" onChange = {this.collegeChangeHandler} placeholder="College" name="college" required /><br />
+                            <label for="firstName"><b>First Name</b></label> <br />
+                            <input class="firstName" onChange={this.firstNameChangeHandler} type="text" placeholder="First Name" name="firstName" required /> <br />
 
-                        <label for="email"><b>Email</b></label><br />
-                        <input type="text" onChange = {this.emailIdChangeHandler} placeholder="Enter Email" name="email" required /><br />
+                            <label class="labelLastName" for="lastName"><b>Last Name</b></label> <br />
+                            <input class="lastName" onChange={this.lastNameChangeHandler} type="text" placeholder="Last Name" name="lastName" required /> <br />
 
-                        <label for="psw"><b>Password</b></label><br />
-                        <input type="password" onChange = {this.passwordChangeHandler} placeholder="Enter Password" name="psw" required /><br />
+                            <label for="college"><b>College</b></label><br />
+                            <input type="text" onChange={this.collegeChangeHandler} placeholder="College" name="college" required /><br />
 
-                        <label for="psw-repeat"><b>Repeat Password</b></label><br />
-                        <input type="password" placeholder="Repeat Password" name="psw-repeat" required />
+                            <label for="email"><b>Email</b></label><br />
+                            <input type="text" onChange={this.emailIdChangeHandler} placeholder="Enter Email" name="email" required /><br />
 
-                        <div class="clearfix">
-                        <button type="button" class="cancelbtn">Cancel</button>
-                        <button type="submit" onClick={this.submitLogin} class="signupbtn">Sign Up</button>
+                            <label for="psw"><b>Password</b></label><br />
+                            <input type="password" onChange={this.passwordChangeHandler} placeholder="Enter Password" name="psw" required /><br />
+
+                            <label for="psw-repeat"><b>Repeat Password</b></label><br />
+                            <input type="password" placeholder="Repeat Password" name="psw-repeat" required />
+
+                            <div class="clearfix">
+                                <button type="button" class="cancelbtn">Cancel</button>
+                                <button type="submit" onClick={this.submitLogin} class="signupbtn">Sign Up</button>
+                            </div>
                         </div>
-                    </div>
-                </form>                                
+                    </form>
 
                     {/* <Form>
                         <Form.Row>
