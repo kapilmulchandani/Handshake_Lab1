@@ -49,7 +49,8 @@ CREATE TABLE jobs_by_company
 
 CREATE TABLE jobs_details
 (
-    job_id INT NOT NULL AUTO_INCREMENT,
+    job_id INT NOT NULL,
+    company_id INT NOT NULL,
     title varchar(200),
     posting_date Date,
     app_deadline Date,
@@ -57,7 +58,8 @@ CREATE TABLE jobs_details
     salary varchar(15),
     job_description varchar(2000),
     job_category ENUM('full-time', 'part-time', 'intern', 'on-campus'),
-    PRIMARY KEY(job_id)
+    PRIMARY KEY (job_id, company_id),
+    FOREIGN KEY (company_id) REFERENCES company_details(company_id)
 );
 
 CREATE TABLE applications

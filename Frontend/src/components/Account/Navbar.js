@@ -160,7 +160,7 @@ class Navbar extends Component {
         return (
             <div>
                 <div className="content-section implementation">
-                     {localStorage.getItem("loggedInUser") ? "" : <Redirect to="/" />}
+                     {localStorage.getItem("loggedInUser") || localStorage.getItem("loggedInCompany") ? "" : <Redirect to="/" />}
                     <Menubar model={this.state.items} >
                         <InputText placeholder="Search" type="text"/>
                         <Button label="Logout" icon="pi pi-power-off" onClick={this.logout} style={{marginLeft:3}} />

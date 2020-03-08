@@ -7,6 +7,7 @@ let expressValidator = require("express-validator");
 
 let account = require("./src/routes/Account");
 let profile = require("./src/routes/Profile");
+let company = require("./src/routes/Company");
 
 let app = express();
 
@@ -39,6 +40,7 @@ app.use(function(req, res, next) {
 // app.use(expressValidator())
 app.use("/", account);
 app.use("/", profile);
+app.use("/", company);
 
 let server = app.listen(3001, function () {
     console.log("Server listening on port 3001");

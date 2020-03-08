@@ -1,11 +1,13 @@
 import {combineReducers} from 'redux';
 import loginReducer from './loginReducer';
 import profileReducer from './profileReducer';
+import companyLoginReducer from './companyLoginReducer';
 
 
 export default combineReducers({
     
     loginReducer: loginReducer,
-    profileReducer: profileReducer
+    profileReducer: profileReducer,
+    companyLoginReducer: companyLoginReducer
     
 })

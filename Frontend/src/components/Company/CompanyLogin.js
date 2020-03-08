@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { InputText } from 'primereact/inputtext';
 import { Button } from 'primereact/button';
-import { loginAction } from '../../actions/loginAction'
+import { companyLoginAction } from '../../actions/companyLoginAction'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router';
 import { Card } from 'primereact/card';
 // import '../../styles/login.css';
 
-class Login extends Component {
+class CompanyLogin extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -41,7 +41,7 @@ class Login extends Component {
             })
         }
         else {
-            await this.props.loginAction({
+            await this.props.companyLoginAction({
                 EmailIdData: this.state.EmailId,
                 PasswordData: this.state.Password
             });
@@ -56,20 +56,18 @@ class Login extends Component {
         let invalidCredentials = null;
         if (this.state.errorMessage) {
             invalidCredentials = <p className="alert alert-danger error-message">{this.state.errorMessage}</p>
-        } else if (false === this.props.loginResponse.success) {
+        } else if (false === this.props.companyLoginResponse.success) {
             invalidCredentials = <p className="alert alert-danger error-message">{this.props.loginResponse.message}</p>
         }
         return (
             <div class="divMid" className="my-4 row" style={{ width: '400px', height:'400px', margin: 'auto' }}>
                  <div className="row" style={{ position:'relative', width: '400px', margin: 'auto' }}>
-                     
-                            <img src="https://ok2static.oktacdn.com/fs/bco/1/fs01heub3azJBMXWF0x7" class="auth-org-logo" alt="San Jose State University logo" />
-                    
+                    <img src="https://ok2static.oktacdn.com/fs/bco/1/fs01heub3azJBMXWF0x7" class="auth-org-logo" alt="San Jose State University logo" />   
                 </div>
 
                 <div className="row">
                 <Card title="">
-                    {localStorage.getItem("loggedInUser") ? <Redirect to="/profile" /> : ""}
+                    {localStorage.getItem("loggedInCompany") ? <Redirect to="/company-job-posting" /> : ""}
                     {/* <div className="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 login-dashboard"> */}
                     <div className="col-md-5 col-md-offset-4  login-dashboard">
                        
@@ -88,7 +86,7 @@ class Login extends Component {
                                 <InputText name="Password" id="float-input" type="password" size="30" value={this.state.Password} onChange={this.onChangeHandler} />
                             </div>
                             <div className="row" >
-                                Are you an employer? <b><a href="/company-login">Log In here.</a></b>
+                                Are you an Student? <b><a href="/login">Log In here.</a></b>
                             </div>
                             <br />
                             <div className="row">
@@ -105,11 +103,11 @@ class Login extends Component {
 }
 
 const mapStateToProps = (state) => ({
-    loginResponse: state.loginReducer.loginResponse,
+    companyLoginResponse: state.companyLoginReducer.companyLoginResponse,
 })
 
-Login.propTypes = {
-    loginResponse: PropTypes.object.isRequired,
+CompanyLogin.propTypes = {
+    companyLoginResponse: PropTypes.object.isRequired,
 }
 
-export default connect(mapStateToProps, { loginAction })(Login);
+export default connect(mapStateToProps, { companyLoginAction })(CompanyLogin);

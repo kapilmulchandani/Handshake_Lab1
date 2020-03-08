@@ -11,6 +11,8 @@
       background-image: url('./handshakeSignUp.png');
       background-repeat: no-repeat;
       height: 650px; 
+      width: 100%;
+}
       /* background-size:80% 180%; */
       /* background-position: left top, right top;
 }
@@ -19,9 +21,9 @@
     background-color: #fff;;
     /* position: absolute; */
     /* right: 0px; */
-    width: 70%;
+    /* width: 70%;
     height: 100%;
-  }
+  } */
 
 .style_heading {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
