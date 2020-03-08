@@ -47,7 +47,6 @@ class Profile extends Component {
 
         };
         this.getData.bind(this);
-        this.journeyChangeHandler.bind(this);
         this.onEdit.bind(this);
     }
     //EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number
@@ -68,37 +67,6 @@ class Profile extends Component {
         })
     }
 
-    // handleJourneyEdit = async (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         editable: true,
-    //         journey: e.target.value
-    //     });
-    // }
-
-    // handleEducationEdit = async (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         editable: true,
-    //         education: e.target.value
-    //     });
-    // }
-
-    // handleWorkExpEdit = async (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         editable: true,
-    //         workExp: e.target.value
-    //     });
-    // }
-
-    // handleOrgAchieveEdit = async (e) => {
-    //     e.preventDefault();
-    //     this.setState({
-    //         editable: true,
-    //         orgAchieve: e.target.value
-    //     });
-    // }
 
     onProfilePicChange = (e) => {
         this.setState({ file: e.target.files[0] });
@@ -158,13 +126,6 @@ class Profile extends Component {
         this.forceUpdate();
     }
 
-    journeyChangeHandler = (e) => {
-        this.setState({
-            journey: e.target.textContent
-        })
-        console.log(this.state.journey);
-    }
-
     componentDidMount() {
         this.setState({
             flag: 2
@@ -175,7 +136,7 @@ class Profile extends Component {
     async getData() {
         if (this.state.flag == 1) {
             const data = {
-                EmailIdData: this.state.EmailId,
+                EmailIdData: this.state.EmailId
             }
             axios.post('http://10.0.0.251:3001/getProfileData', data)
                 .then((response) => {

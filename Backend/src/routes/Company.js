@@ -36,6 +36,35 @@ router.post('/post-job', function(req,res){
         });
 });
 
+router.post('/getCompanyProfileData', function(req,res){
+    console.log("Inside Company Get Profile Function");
+    var sql = "select * from company_details where company_id = '"+req.body.CompanyIdData+"';";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        if (result.length == 1) {
+            res.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+            res.end(JSON.stringify({
+                CompanyName: result[0].name,
+                CompanyEmailId: result[0].emailid,
+                CompanyLocation: result[0].location,
+                CompanyDescription: result[0].description,
+                CompanyContactInfo: result[0].contact_info
+            }));
+        }
+    });
+});
+
+router.post('/save-company-profile', function (req, res) {
+    var sql = "UPDATE company_details SET description = '" + req.body.DescriptionData + "', contact_info = '" + req.body.ContactInfoData + "', location = '" + req.body.LocationData + "';";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        // console.log("1 record inserted");
+        res.end("Successful_Updation");
+    });
+});
+
 router.post('/company-login',function(req,resp){    
     console.log("Inside Company Login Post Request");
         console.log(req.body.EmailIdData);

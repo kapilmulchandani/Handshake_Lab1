@@ -94,6 +94,11 @@ CREATE TABLE event_attendance
     FOREIGN KEY (event_id) REFERENCES events(event_id)
 );
 
+ALTER TABLE company_details
+ADD description varchar(1255);
+
+ALTER TABLE company_details
+ADD contact_info varchar(1255);
 -- UPDATE students_details 
 -- SET 
 --     Journey = 'Hill',

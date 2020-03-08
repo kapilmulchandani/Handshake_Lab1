@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import Select from 'react-select';
-import Navbar from '../Account/Navbar';
+import CompanyNavbar from './CompanyNavbar';
 import { Button } from 'primereact/button';
 import '../../styles/jobPosting.css';
 import { Calendar } from 'primereact/calendar';
@@ -35,13 +35,8 @@ class CompanyJobPosting extends Component {
         let items = JSON.parse(localStorage.getItem('loggedInCompany'));
         console.log('ITEMS ', items['CompanyId']);
         var company_id_no = items['CompanyId']
-        // this.setState({
-            // companyId : localStorage.getItem('loggedInUser').CompanyId
-        //     companyId: JSON.parse(localStorage.getItem('loggedInUser'))['CompanyId']
-        // });
-        // let date=new Date().getDate() + "/"+ parseInt(new Date().getMonth()+1) +"/"+new Date().getFullYear();
+
         let applicationDate = this.state.applicationDeadline;
-        // let date = applicationDate.getFullYear() + "/" + parseInt(applicationDate.getMonth() + 1) + "/" + applicationDate.getDate();
         var MyDate = new Date();
 
         var MyDateString = MyDate.getFullYear() + '-'
@@ -51,9 +46,6 @@ class CompanyJobPosting extends Component {
         var ApplicationDateString = applicationDate.getFullYear() + '-'
             + ('0' + (applicationDate.getMonth() + 1)).slice(-2) + '-' + ('0' + applicationDate.getDate()).slice(-2);
 
-
-        console.log(MyDateString);
-        console.log(company_id_no);
         const data = {
             CompanyIdData: company_id_no,
             JobIdData: this.state.jobId,
@@ -91,7 +83,7 @@ class CompanyJobPosting extends Component {
         ];
         return (
             <div>
-                <Navbar />
+                <CompanyNavbar />
                 <div className="row" style={{ backgroundColor: '#0f1035', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}>
                     Hi! How are You!
                 </div>
