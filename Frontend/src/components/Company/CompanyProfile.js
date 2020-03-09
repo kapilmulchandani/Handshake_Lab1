@@ -89,6 +89,7 @@ class CompanyProfile extends Component {
                 })
 
             });
+        console.log('Comp', this.state);
     }
 
     render() {
@@ -133,12 +134,33 @@ class CompanyProfile extends Component {
                     </Card>
 
 
-                    <Card title="Location" style={{ position: 'absolute', top: '380px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
-                    <div>{this.state.location}</div>
+                    <Card title="" style={{ position: 'absolute', top: '380px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '240px' }}>
+                    <div className="row">
+                            <div className="col-9">
+                                <h5><strong>Location</strong></h5>
+                            </div>
+                            <div className="col-3">
+                                <label id="edit-photo" className="btn btn-default btn-icon-circle" title="" type="button" placeholder="">
+                                    <i className="material-icons blue006">edit</i>
+                                    <input type="button" id="profile-input" className="d-none" name="locationEditable" onClick={this.onEdit}></input>
+                                </label>
+                            </div>
+                        </div>
+                        <div className='mx-3 mb-3 row'>
+                            <InputTextarea name="location" rows={5} cols={55} onChange={this.handleEdit} disabled={(this.state.locationEditable) ? "" : "disabled"} value={this.state.location} autoResize={true}></InputTextarea>
+                        </div>
+                        {this.state.locationEditable ?
+                            <div className="row">
+                                <div className="col-3"></div>
+                                <Button variant="primary" name="locationEditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
+                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                <div className="col-3"></div>
+                            </div> : null
+                        }
                     </Card>
 
 
-                    <Card title="" style={{ position: 'absolute', left: '340px', top: '680px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '484px', height: '580px' }}>
+                    <Card title="" style={{ position: 'absolute', left: '340px', top: '680px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '484px', height: '250px' }}>
                         {/* <Button active='true' name="educationeditable" onClick={this.onEdit} icon="pi pi-pencil" style={{ position: 'absolute', left: '440px', top: '5px' }} /> */}
                         <div className="row">
                             <div className="col-9">
@@ -152,7 +174,7 @@ class CompanyProfile extends Component {
                             </div>
                         </div>
                         <div className='mx-3 mb-3 row'>
-                            <InputTextarea name="contact_info" rows={20} cols={55} onChange={this.handleEdit} disabled={(this.state.contactInfoEditable) ? "" : "disabled"} value={this.state.contact_info} autoResize={true}></InputTextarea>
+                            <InputTextarea name="contact_info" rows={5} cols={55} onChange={this.handleEdit} disabled={(this.state.contactInfoEditable) ? "" : "disabled"} value={this.state.contact_info} autoResize={true}></InputTextarea>
                         </div>
                         {this.state.contactInfoEditable ?
                             <div className="row">

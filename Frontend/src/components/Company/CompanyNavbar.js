@@ -2,13 +2,9 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
-import { Form } from 'react-bootstrap';
-import { FormControl } from 'react-bootstrap';
-import { Button } from 'react-bootstrap';
-import { InputText } from "primereact/inputtext";
+
 import { Redirect } from 'react-router';
 
 class CompanyNavbar extends Component {
@@ -43,7 +39,8 @@ class CompanyNavbar extends Component {
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#home">Home</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/company-profile">Profile</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#pricing">Jobs</Nav.Link>
-                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="">Events</Nav.Link>
+                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#hello">Events</Nav.Link>
+                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#hellohi">Search</Nav.Link>
                   </Nav>
                </Navbar>
 

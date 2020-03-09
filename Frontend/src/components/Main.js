@@ -9,6 +9,7 @@ import CompanySignUp from './Company/CompanySignUp';
 import CompanyLogin from './Company/CompanyLogin';
 import CompanyJobPosting from './Company/CompanyJobPosting';
 import CompanyProfile from './Company/CompanyProfile';
+import StudentSearch from './Search/StudentSearch';
 
 class Main extends Component {
     render(){
@@ -24,7 +25,7 @@ class Main extends Component {
                 <Route exact path="/company-login" component={CompanyLogin} />
                 <Route exact path="/company-job-posting" component={CompanyJobPosting} />
                 <Route exact path="/company-profile" component={CompanyProfile} />
-                
+                <Route exact path="/student-search" component={StudentSearch} />
                 
             </div>
         )

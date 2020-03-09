@@ -28,7 +28,7 @@ router.post('/post-job', function(req,res){
         console.log("Inside Company Post SignUp Function");
         // console.log(req.body);
         // console.log("Connected!");
-        var sql = "INSERT INTO jobs_details (job_id, company_id, title, posting_date, app_deadline, location, salary, job_description, job_category) VALUES ('"+req.body.JobIdData+"', '"+req.body.CompanyIdData+"', '" +req.body.JobTitleData+"', '"+ req.body.PostingDateData+"', '"+req.body.ApplicationDeadlineData+"', '"+ req.body.LocationData+"', '"+req.body.SalaryData+"', '" + req.body.JobDescriptionData+ "', '"+req.body.JobCategoryData+ "');";
+        var sql = "INSERT INTO jobs_details (job_id, company_id, title, posting_date, app_deadline, company_location, salary, job_description, job_category) VALUES ('"+req.body.JobIdData+"', '"+req.body.CompanyIdData+"', '" +req.body.JobTitleData+"', '"+ req.body.PostingDateData+"', '"+req.body.ApplicationDeadlineData+"', '"+ req.body.LocationData+"', '"+req.body.SalaryData+"', '" + req.body.JobDescriptionData+ "', '"+req.body.JobCategoryData+ "');";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log('Success');
@@ -48,16 +48,17 @@ router.post('/getCompanyProfileData', function(req,res){
             res.end(JSON.stringify({
                 CompanyName: result[0].name,
                 CompanyEmailId: result[0].emailid,
-                CompanyLocation: result[0].location,
+                CompanyLocation: result[0].company_location,
                 CompanyDescription: result[0].description,
                 CompanyContactInfo: result[0].contact_info
             }));
+            console.log(result);
         }
     });
 });
 
 router.post('/save-company-profile', function (req, res) {
-    var sql = "UPDATE company_details SET description = '" + req.body.DescriptionData + "', contact_info = '" + req.body.ContactInfoData + "', location = '" + req.body.LocationData + "';";
+    var sql = "UPDATE company_details SET description = '" + req.body.DescriptionData + "', contact_info = '" + req.body.ContactInfoData + "', company_location = '" + req.body.LocationData + "';";
     connection.query(sql, function (err, result) {
         if (err) throw err;
         // console.log("1 record inserted");
@@ -100,7 +101,7 @@ router.post('/company-login',function(req,resp){
 
 router.post('/companysignup', function(req,res){
     console.log("Inside Company Post SignUp Function");
-    var sql = "INSERT INTO company_details (name, emailid, password, location) VALUES ('"+req.body.CompanyNameData+"', '"+ req.body.EmailIdData+"', '"+req.body.PasswordData+"', '"+ req.body.LocationData+"')";
+    var sql = "INSERT INTO company_details (name, emailid, password, company_location) VALUES ('"+req.body.CompanyNameData+"', '"+ req.body.EmailIdData+"', '"+req.body.PasswordData+"', '"+ req.body.LocationData+"')";
      connection.query(sql, function (err, result) {
         if (err) throw err;
         res.end("Successful_Insertion");

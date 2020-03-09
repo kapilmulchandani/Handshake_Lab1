@@ -99,6 +99,28 @@ ADD description varchar(1255);
 
 ALTER TABLE company_details
 ADD contact_info varchar(1255);
+
+
+SELECT CustomerName, City, Country
+FROM Customers
+ORDER BY
+(CASE
+    WHEN City IS NULL THEN Country
+    ELSE City
+END);
+
+SELECT * FROM student_details a 
+INNER JOIN 
+student_info b 
+ON
+a.student_id = b.student_id 
+
+CASE
+LEN(req.body.StudentFirstNameData) > 0 THEN 
+WHERE
+first_name = req.body.StudentFirstNameData;
+
+
 -- UPDATE students_details 
 -- SET 
 --     Journey = 'Hill',
