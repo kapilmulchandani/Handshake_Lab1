@@ -1,15 +1,21 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import { render } from 'react-dom';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { WithContext as ReactTags } from 'react-tag-input';
-import { axios } from 'axios';
+import axios from 'axios';
+import Modal from 'react-bootstrap/Modal';
+import ButtonGroup from 'react-bootstrap/ButtonGroup'
+import ButtonToolbar from 'react-bootstrap/ButtonGroup';
+import Button from 'react-bootstrap/Button';
+
 const KeyCodes = {
     comma: 188,
     enter: 13,
 };
-var skillsString;
+var skillsArray = [];
 const delimiters = [KeyCodes.comma, KeyCodes.enter];
+
 
 class StudentSearch extends Component {
     constructor(props) {
@@ -19,6 +25,7 @@ class StudentSearch extends Component {
             studentLastName: '',
             collegeName: '',
             skills: '',
+            emailid: '',
             tags: [],
             suggestions: [
                 { id: 'Java', text: 'Java' },
@@ -33,6 +40,7 @@ class StudentSearch extends Component {
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
         this.handleTagsToStringArray = this.handleTagsToStringArray.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleDelete(i) {
@@ -58,42 +66,68 @@ class StudentSearch extends Component {
     }
 
     handleTagsToStringArray() {
-        
+
         for (var i = 0; i < this.state.tags.length; i++) {
             console.log(this.state.tags[i].text);
             // var res = str1.concat(str2, str3);
-            if (skillsString != null)
-                skillsString = skillsString.concat(',', this.state.tags[i].text);
-            else
-                skillsString = this.state.tags[i].text;
-            console.log(skillsString);
+            skillsArray[i] = this.state.tags[i].text;
+            console.log(skillsArray);
         }
     }
 
 
-
+    showModal = (e) => {
+        const [lgShow, setLgShow] = useState(false);
+        return (
+            <ButtonToolbar>
+                <Button onClick={() => setLgShow(true)}>Large modal</Button>
+                <Modal
+                    size="lg"
+                    show={lgShow}
+                    onHide={() => setLgShow(false)}
+                    aria-labelledby="example-modal-sizes-title-lg"
+                >
+                    <Modal.Header closeButton>
+                        <Modal.Title id="example-modal-sizes-title-lg">
+                            Large Modal
+          </Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>...</Modal.Body>
+                </Modal>
+            </ButtonToolbar>
+        );
+    }
     handleSubmit = (e) => {
         this.handleTagsToStringArray();
-        e.preventDefault();
+        // e.preventDefault();
         // this.props.signup(data);
         console.log(this.state);
         const data = {
-            StudentFirstNameData: this.state.studentFirstName,
-            StudentLastNameData: this.state.studentLastName,
-            CollegeNameData: this.state.collegeName,
-            SkillsData: skillsString
+            first_name: this.state.studentFirstName,
+            last_name: this.state.studentLastName,
+            college_name: this.state.collegeName,
+            skills: skillsArray
         }
-
+        console.log({ data });
+        var newData;
         axios.defaults.withCredentials = true;
         //make a post request with the user data
         axios.post('http://localhost:3001/search-students', data)
             .then(response => {
-                console.log("Status Code Create : ", response.data);
-                if (response.data === 'Successful_Insertion') {
-                    window.open('/login', "_self");
-                }
+                debugger;
+                newData = response.data;
+                this.setState({
+                    studentFirstName: newData.FirstNameData,
+                    studentLastName: newData.LastNameData,
+                    emailid: newData.EmailIdData,
+                    collegeName: newData.CollegeNameData,
+                    skills: newData.SkillsData
+                });
 
             });
+            debugger;
+            console.log('After ', newData );
+            alert(this.state.collegeName);
     }
 
     handleChange = (e) => {
@@ -103,6 +137,7 @@ class StudentSearch extends Component {
     }
 
     render() {
+
         const { tags, suggestions } = this.state;
         return (
             <div>
@@ -114,7 +149,7 @@ class StudentSearch extends Component {
                         <Nav.Link style={{ fontWeight: 'bold', fontSize: 18 }} href="/company-profile">Profile</Nav.Link>
                         <Nav.Link style={{ fontWeight: 'bold', fontSize: 18 }} href="#pricing">Jobs</Nav.Link>
                         <Nav.Link style={{ fontWeight: 'bold', fontSize: 18 }} href="#hello">Events</Nav.Link>
-                        <Nav.Link style={{ fontWeight: 'bold', fontSize: 18 }} href="#hellohi">Search</Nav.Link>
+                        <Nav.Link style={{ fontWeight: 'bold', fontSize: 18 }} href="/student-search">Search</Nav.Link>
                     </Nav>
                 </Navbar>
                 <div className="row"> <br /></div>
@@ -127,7 +162,7 @@ class StudentSearch extends Component {
                 <br />
                 {/* <div className="row" style={{ clear: 'both' }}> */}
 
-                <form onSubmit={this.handleSubmit}>
+                <form>
 
                     <div className="row">
                         <div className="col-md-1"></div>
@@ -165,9 +200,11 @@ class StudentSearch extends Component {
 
                     <div className="row">
                         <div className="col-md-1"></div>
-                        <input type="submit" value="Submit" />
+                        <input type="button" onClick={this.handleSubmit} value="Submit" />
+
                     </div>
                 </form>
+                <this.showModal />
             </div>
         );
     }
