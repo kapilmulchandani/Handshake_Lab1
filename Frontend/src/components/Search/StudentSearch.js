@@ -4,6 +4,9 @@ import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { WithContext as ReactTags } from 'react-tag-input';
 import axios from 'axios';
+import { searchResultsAction } from '../../actions/searchResultsAction'
+import PropTypes from 'prop-types'
+import { connect } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonGroup';
@@ -27,6 +30,7 @@ class StudentSearch extends Component {
             skills: '',
             emailid: '',
             tags: [],
+            searchData: [],
             suggestions: [
                 { id: 'Java', text: 'Java' },
                 { id: 'React', text: 'React' },
@@ -36,6 +40,7 @@ class StudentSearch extends Component {
                 { id: 'MySQL', text: 'MySQL' }
             ]
         };
+        localStorage.removeItem('searchResults');
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
@@ -75,59 +80,96 @@ class StudentSearch extends Component {
         }
     }
 
+    renderTableData() {
+        return this.state.students.map((student, index) => {
+           const { id, name, age, email } = student //destructuring
+           return (
+              <tr key={id}>
+                 <td>{id}</td>
+                 <td>{name}</td>
+                 <td>{age}</td>
+                 <td>{email}</td>
+              </tr>
+           )
+        })
+     }
+    
 
-    showModal = (e) => {
-        const [lgShow, setLgShow] = useState(false);
-        return (
-            <ButtonToolbar>
-                <Button onClick={() => setLgShow(true)}>Large modal</Button>
-                <Modal
-                    size="lg"
-                    show={lgShow}
-                    onHide={() => setLgShow(false)}
-                    aria-labelledby="example-modal-sizes-title-lg"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="example-modal-sizes-title-lg">
-                            Large Modal
-          </Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>...</Modal.Body>
-                </Modal>
-            </ButtonToolbar>
-        );
-    }
-    handleSubmit = (e) => {
+    // showModal = (e) => {
+    //     const [lgShow, setLgShow] = useState(false);
+    //     return (
+    //         <ButtonToolbar>
+    //             {/* <Button onClick={() => setLgShow(true)}>Submit</Button> */}
+                
+    //             <Button onClick={this.handleSubmit}>Submit</Button>
+    //             <Modal
+    //                 size="lg"
+    //                 show={lgShow}
+    //                 onHide={() => setLgShow(false)}
+    //                 aria-labelledby="example-modal-sizes-title-lg"
+    //             >
+    //                 <Modal.Header closeButton>
+    //                     <Modal.Title id="example-modal-sizes-title-lg">
+    //                         Large Modal
+    //       </Modal.Title>
+    //                 </Modal.Header>
+    //                 <Modal.Body><p>Hi How </p></Modal.Body>
+    //             </Modal>
+    //         </ButtonToolbar>
+    //     );
+    // }
+
+    handleSubmit = async (e) => {
+        // const [lgShow, setLgShow] = useState(false);
+        // setLgShow(true)
+        
         this.handleTagsToStringArray();
         // e.preventDefault();
         // this.props.signup(data);
-        console.log(this.state);
-        const data = {
-            first_name: this.state.studentFirstName,
-            last_name: this.state.studentLastName,
-            college_name: this.state.collegeName,
-            skills: skillsArray
-        }
-        console.log({ data });
-        var newData;
-        axios.defaults.withCredentials = true;
-        //make a post request with the user data
-        axios.post('http://localhost:3001/search-students', data)
-            .then(response => {
-                debugger;
-                newData = response.data;
-                this.setState({
-                    studentFirstName: newData.FirstNameData,
-                    studentLastName: newData.LastNameData,
-                    emailid: newData.EmailIdData,
-                    collegeName: newData.CollegeNameData,
-                    skills: newData.SkillsData
-                });
+        // console.log(this.state);
+        // var datanew = {
+        //     first_name: this.state.studentFirstName,
+        //     last_name: this.state.studentLastName,
+        //     college_name: this.state.collegeName,
+        //     skills: skillsArray
+        // }
 
-            });
-            debugger;
-            console.log('After ', newData );
-            alert(this.state.collegeName);
+        // var req =  {
+        //     data: {
+        //         first_name: this.state.studentFirstName,
+        //         last_name: this.state.studentLastName,
+        //         college_name: this.state.collegeName,
+        //         skills: skillsArray
+        //     }
+        //   }
+          
+
+        // var newData;
+        // var finalResults;
+        axios.defaults.withCredentials = true;
+        
+        //make a post request with the user data
+        // axios.post('http://localhost:3001/search-students', datanew)
+        //     .then(response => {
+        //         debugger;
+        //         finalResults = response;
+        //         newData = response.data;
+        //         console.log("NEW DATA", newData);
+        //         finalResults = newData.testData;
+        //         this.setState({
+        //             searchData : newData.testData
+        //         });
+
+        //     });
+        // console.log(datanew);
+        await this.props.searchResultsAction({ 
+            first_name: this.state.studentFirstName,
+                last_name: this.state.studentLastName,
+                college_name: this.state.collegeName,
+                skills: skillsArray
+        });
+        
+        window.open("/search-results","_self");
     }
 
     handleChange = (e) => {
@@ -137,7 +179,7 @@ class StudentSearch extends Component {
     }
 
     render() {
-
+        
         const { tags, suggestions } = this.state;
         return (
             <div>
@@ -201,12 +243,23 @@ class StudentSearch extends Component {
                     <div className="row">
                         <div className="col-md-1"></div>
                         <input type="button" onClick={this.handleSubmit} value="Submit" />
+                        {/* <this.showModal /> */}
 
                     </div>
+                    { console.log('After ', this.state.searchData)}
                 </form>
-                <this.showModal />
+               
             </div>
         );
     }
 }
-export default StudentSearch;
+
+const mapStateToProps = (state) => ({
+    searchResultsResponse: state.searchResultsReducer.searchResultsResponse,
+})
+
+StudentSearch.propTypes = {
+    searchResultsResponse: PropTypes.object.isRequired,
+}
+
+export default connect(mapStateToProps, { searchResultsAction })(StudentSearch);

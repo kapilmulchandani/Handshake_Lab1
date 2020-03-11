@@ -44,21 +44,30 @@ function createQuery(data) {
     }
     return query;
 }
-
+var i =0;
 router.post('/search-students', function (req, res) {
-    console.log(req.body);
+    console.log("REQ", req.body);
     var sql = createQuery(req.body);
     connection.query(sql, function (err, result) {
         if (err) throw err;
         // console.log("1 record inserted");
-        console.log(result[0].email_id);
+        console.log(result);
+
+        let testData = [];
+        result.forEach(element => {
+              testData.push(element)
+        });
+
+        console.log("TEST_DATA ", i, testData);
+        i++;
         res.end(JSON.stringify({
-            StudentIdData: result[0].student_id,
-            FirstNameData: result[0].first_name,
-            LastNameData: result[0].last_name,
-            EmailIdData: result[0].email_id,
-            CollegeNameData: result[0].college_name,
-            SkillsData: result[0].skills.substring(1, result[0].skills.length-1)
+            // StudentIdData: result[0].student_id,
+            // FirstNameData: result[0].first_name,
+            // LastNameData: result[0].last_name,
+            // EmailIdData: result[0].email_id,
+            // CollegeNameData: result[0].college_name,
+            // SkillsData: result[0].skills.substring(1, result[0].skills.length-1)
+            testData
         }));
 
     });

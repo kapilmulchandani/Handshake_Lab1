@@ -115,10 +115,6 @@ student_info b
 ON
 a.student_id = b.student_id 
 
-CASE
-LEN(req.body.StudentFirstNameData) > 0 THEN 
-WHERE
-first_name = req.body.StudentFirstNameData;
 
 
 -- UPDATE students_details 

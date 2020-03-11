@@ -88,19 +88,19 @@ class SignUp extends Component {
                         <div class="containerNew">
 
                             <label for="firstName"><b>First Name</b></label> <br />
-                            <input class="firstName" onChange={this.firstNameChangeHandler} type="text" placeholder="First Name" name="first_name" required /> <br />
+                            <input class="firstName" name="first_name" onChange={this.onChangeHandler} type="text" placeholder="First Name" name="first_name" required /> <br />
 
                             <label class="labelLastName" for="lastName"><b>Last Name</b></label> <br />
-                            <input class="lastName" onChange={this.lastNameChangeHandler} type="text" placeholder="Last Name" name="last_name" required /> <br />
+                            <input class="lastName" name="last_name" onChange={this.onChangeHandler} type="text" placeholder="Last Name" name="last_name" required /> <br />
 
                             <label for="college"><b>College</b></label><br />
-                            <input type="text" onChange={this.collegeChangeHandler} placeholder="College" name="college_name" required /><br />
+                            <input type="text" name="college_name" onChange={this.onChangeHandler} placeholder="College" name="college_name" required /><br />
 
                             <label for="email"><b>Email</b></label><br />
-                            <input type="text" onChange={this.emailIdChangeHandler} placeholder="Enter Email" name="emailid" required /><br />
+                            <input type="text" name="emailid" onChange={this.onChangeHandler} placeholder="Enter Email" name="emailid" required /><br />
 
                             <label for="psw"><b>Password</b></label><br />
-                            <input type="password" onChange={this.passwordChangeHandler} placeholder="Enter Password" name="password" required /><br />
+                            <input type="password" name="password" onChange={this.onChangeHandler} placeholder="Enter Password" name="password" required /><br />
 
 
                             <div class="clearfix">
