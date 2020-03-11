@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
 // import { Button } from 'primereact/button';
 import { InputText } from "primereact/inputtext";
-import Navbar from './Navbar';
+import StudentNavbar from './StudentNavbar';
 import SignUp from './SignUp';
 import { Card } from 'primereact/card';
 import Popup from 'react-popup';
@@ -175,7 +175,7 @@ class Profile extends Component {
         return (
             <div>
                 {/* <Background /> */}
-                <Navbar />
+                <StudentNavbar />
                 <div className="content-section introduction">
                 </div>
                 {/* {localStorage.getItem("loggedInUser") ? this.setState({ EmailId: localStorage.getItem("loggedInUser") }): ''} */}

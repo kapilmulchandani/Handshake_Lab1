@@ -19,6 +19,13 @@ class Searchresults extends Component {
         }
     }
 
+    logValue = (e)=>{
+        // console.log(e.target.name);
+        console.log(document.getElementById ( "tdid" ).innerText);
+        localStorage.setItem("student_id", document.getElementById ( "tdid" ).innerText);
+        window.open('\student-profile', '_self');
+    }
+
     renderTableData() {
         // var movies2 = JSON.parse(retrievedData);
         studentsArray = this.state.students['searchData']
@@ -26,8 +33,8 @@ class Searchresults extends Component {
         return studentsArray.map((studentsArray, index) => {
             const { student_id, email_id, first_name, last_name, skills, college_name } = studentsArray //destructuring
             return (
-                <tr key={student_id} onClick={this.renderTableHeader}>
-                    <td >{student_id}</td>
+                <tr key={student_id}>
+                    <td  id = "tdid" onClick={this.logValue} >{student_id}</td>
                     <td>{email_id}</td>
                     <td>{first_name}</td>
                     <td>{last_name}</td>

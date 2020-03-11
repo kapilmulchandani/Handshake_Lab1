@@ -84,8 +84,13 @@ class CompanyJobPosting extends Component {
         return (
             <div>
                 <CompanyNavbar />
-                <div className="row" style={{ backgroundColor: '#0f1035', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}>
-                    Hi! How are You!
+                <div className="row"></div>
+                {/* <div className="row" style={{ backgroundColor: '#0f1035', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}> */}
+                <div className="row" style={{ backgroundColor: '', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}>
+                
+                <div className="col-md-2"></div>
+                
+                <img src={'/jobs2.jpg'} style={{ height: '250px', width: '1000px' }} />
                 </div>
                 <div className="row" style={{ justifyContent: 'center' }}>
                     Post a Job here .

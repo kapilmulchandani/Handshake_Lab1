@@ -51,6 +51,59 @@ router.post('/getProfileData', function (req, resp) {
 
 });
 
+router.post('/getProfileData', function (req, resp) {
+
+    // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+    // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
+    var sql = "SELECT * FROM student_details where emailid='" + req.body.EmailIdData + "';";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        if (result.length == 1) {
+            resp.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+            resp.end(JSON.stringify({
+                EmailId: result[0].emailid,
+                journey: result[0].journey,
+                education: result[0].education,
+                workExp: result[0].work_exp,
+                orgAchieve: result[0].org_achieve,
+                skills: result[0].skills,
+                mobile_number: result[0].mobile_number
+            }));
+        }
+    });
+
+});
+
+router.post('/getStudentProfileData', function (req, resp) {
+
+    // var sql = "INSERT INTO student_info (FirstName, LastName, EmailId, CollegeName, Password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+    // var journeyData = "SELECT Journey FROM Student_Details where EmailId='" + email + "';";
+    var sql = "SELECT * FROM student_details where student_id='" + req.body.StudentIdData + "';";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        if (result.length == 1) {
+            resp.writeHead(200, {
+                'Content-Type': 'application/json'
+            });
+            resp.end(JSON.stringify({
+                EmailId: result[0].emailid,
+                journey: result[0].journey,
+                education: result[0].education,
+                workExp: result[0].work_exp,
+                orgAchieve: result[0].org_achieve,
+                skills: result[0].skills,
+                mobile_number: result[0].mobile_number
+            }));
+        }
+    });
+
+});
+
+
+
+
 router.post('/save', function (req, res) {
     var sql = "UPDATE student_details SET journey = '" + req.body.journeyData + "', education = '" + req.body.educationData + "', work_exp = '" + req.body.workExpData + "',org_achieve = '" + req.body.orgAchieveData + "', skills = '" + req.body.skillsData + "', mobile_number = " + req.body.mobile_numberData + " WHERE emailid = '" + req.body.emailData + "';";
     connection.query(sql, function (err, result) {

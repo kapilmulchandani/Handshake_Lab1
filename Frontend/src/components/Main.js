@@ -3,7 +3,8 @@ import {Route} from 'react-router-dom';
 import Home from './LandingPage/Home';
 import SignUp from './Account/SignUp';
 import Profile from './Account/Profile';
-import Navbar from './Account/Navbar';
+import StudentProfile from './Account/StudentProfileView';
+import StudentNavbar from './Account/StudentNavbar';
 import Login from './Account/Login';
 import CompanySignUp from './Company/CompanySignUp';
 import CompanyLogin from './Company/CompanyLogin';
@@ -21,6 +22,7 @@ class Main extends Component {
                 <Route exact path="/"  component={Home}/>
                 <Route exact path="/signup" component={SignUp}/>
                 <Route exact path="/profile" component={Profile}/>
+                <Route exact path="/student-profile" component={StudentProfile}/>
                 <Route exact path="/login" component={Login} />
                 <Route exact path="/company-signup" component={CompanySignUp} />
                 <Route exact path="/company-login" component={CompanyLogin} />

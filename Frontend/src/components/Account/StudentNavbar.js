@@ -7,7 +7,7 @@ import { Nav } from 'react-bootstrap';
 
 import { Redirect } from 'react-router';
 
-class CompanyNavbar extends Component {
+class StudentNavbar extends Component {
 
    constructor(props) {
       super(props);
@@ -50,4 +50,4 @@ class CompanyNavbar extends Component {
    }
 }
 
-export default CompanyNavbar;
+export default StudentNavbar;
