@@ -74,24 +74,28 @@ CREATE TABLE applications
 );
 
 CREATE TABLE events
-(
-    event_id INT NOT NULL AUTO_INCREMENT,
+(   
+    event_id INT NOT NULL,
+    company_id INT NOT NULL,
     event_name varchar(200),
     event_description varchar(2000),
     event_time TIME,
     event_date Date,
     event_location varchar(50),
     event_eligibility varchar(100),
-    PRIMARY KEY(event_id)
+    PRIMARY KEY(event_id, company_id),
+    FOREIGN KEY (company_id) REFERENCES company_details(company_id)
 );
 
 CREATE TABLE event_attendance
 (
     student_id INT NOT NULL,
     event_id INT NOT NULL,
-    PRIMARY KEY(student_id, event_id),
+    company_id INT NOT NULL,
+    PRIMARY KEY(student_id, event_id, company_id),
+    FOREIGN KEY (event_id) REFERENCES events(event_id),
     FOREIGN KEY (student_id) REFERENCES student_info(student_id),
-    FOREIGN KEY (event_id) REFERENCES events(event_id)
+    FOREIGN KEY (company_id) REFERENCES company_details(company_id)
 );
 
 ALTER TABLE company_details

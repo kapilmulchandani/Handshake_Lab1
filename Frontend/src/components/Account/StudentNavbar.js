@@ -38,8 +38,10 @@ class StudentNavbar extends Component {
                <Nav className="mr-auto">
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#home">Home</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/company-profile">Profile</Nav.Link>
-                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/company-job-posting">Jobs</Nav.Link>
+                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-search">Applications</Nav.Link>
+                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-job-dashboard">Jobs</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#hello">Events</Nav.Link>
+                     
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-search">Search</Nav.Link>
                   </Nav>
                </Navbar>

@@ -82,25 +82,25 @@ class StudentSearch extends Component {
 
     renderTableData() {
         return this.state.students.map((student, index) => {
-           const { id, name, age, email } = student //destructuring
-           return (
-              <tr key={id}>
-                 <td>{id}</td>
-                 <td>{name}</td>
-                 <td>{age}</td>
-                 <td>{email}</td>
-              </tr>
-           )
+            const { id, name, age, email } = student //destructuring
+            return (
+                <tr key={id}>
+                    <td>{id}</td>
+                    <td>{name}</td>
+                    <td>{age}</td>
+                    <td>{email}</td>
+                </tr>
+            )
         })
-     }
-    
+    }
+
 
     // showModal = (e) => {
     //     const [lgShow, setLgShow] = useState(false);
     //     return (
     //         <ButtonToolbar>
     //             {/* <Button onClick={() => setLgShow(true)}>Submit</Button> */}
-                
+
     //             <Button onClick={this.handleSubmit}>Submit</Button>
     //             <Modal
     //                 size="lg"
@@ -122,7 +122,7 @@ class StudentSearch extends Component {
     handleSubmit = async (e) => {
         // const [lgShow, setLgShow] = useState(false);
         // setLgShow(true)
-        
+
         this.handleTagsToStringArray();
         // e.preventDefault();
         // this.props.signup(data);
@@ -142,12 +142,12 @@ class StudentSearch extends Component {
         //         skills: skillsArray
         //     }
         //   }
-          
+
 
         // var newData;
         // var finalResults;
         axios.defaults.withCredentials = true;
-        
+
         //make a post request with the user data
         // axios.post('http://localhost:3001/search-students', datanew)
         //     .then(response => {
@@ -162,14 +162,14 @@ class StudentSearch extends Component {
 
         //     });
         // console.log(datanew);
-        await this.props.searchResultsAction({ 
+        await this.props.searchResultsAction({
             first_name: this.state.studentFirstName,
-                last_name: this.state.studentLastName,
-                college_name: this.state.collegeName,
-                skills: skillsArray
+            last_name: this.state.studentLastName,
+            college_name: this.state.collegeName,
+            skills: skillsArray
         });
-        
-        window.open("/search-results","_self");
+
+        window.open("/search-results", "_self");
     }
 
     handleChange = (e) => {
@@ -179,7 +179,7 @@ class StudentSearch extends Component {
     }
 
     render() {
-        
+
         const { tags, suggestions } = this.state;
         return (
             <div>
@@ -246,9 +246,9 @@ class StudentSearch extends Component {
                         {/* <this.showModal /> */}
 
                     </div>
-                    { console.log('After ', this.state.searchData)}
+                    {console.log('After ', this.state.searchData)}
                 </form>
-               
+
             </div>
         );
     }

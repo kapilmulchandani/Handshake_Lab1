@@ -12,6 +12,8 @@ import CompanyJobPosting from './Company/CompanyJobPosting';
 import CompanyProfile from './Company/CompanyProfile';
 import StudentSearch from './Search/StudentSearch';
 import Searchresults from './Search/Searchresults';
+import StudentJobDashboard from './Jobs/StudentJobDashboard';
+import EventsPosting from './Events/EventsPosting';
 
 class Main extends Component {
     render(){
@@ -27,9 +29,11 @@ class Main extends Component {
                 <Route exact path="/company-signup" component={CompanySignUp} />
                 <Route exact path="/company-login" component={CompanyLogin} />
                 <Route exact path="/company-job-posting" component={CompanyJobPosting} />
+                <Route exact path="/events-posting" component={EventsPosting} />
                 <Route exact path="/company-profile" component={CompanyProfile} />
                 <Route exact path="/student-search" component={StudentSearch} />
                 <Route exact path="/search-results" component={Searchresults} />
+                <Route exact path="/student-job-dashboard" component={StudentJobDashboard} />
             </div>
         )
     }

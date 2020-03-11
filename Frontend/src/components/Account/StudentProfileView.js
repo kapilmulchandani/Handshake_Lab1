@@ -3,26 +3,16 @@ import 'primereact/resources/themes/nova-light/theme.css';
 import 'primereact/resources/primereact.min.css';
 import 'primeicons/primeicons.css';
 import { InputTextarea } from 'primereact/inputtextarea';
-
 import '../../styles/profile.css';
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import { Menubar } from 'primereact/menubar';
-// import { Button } from 'primereact/button';
-import { InputText } from "primereact/inputtext";
-import StudentNavbar from './StudentNavbar';
-import SignUp from './SignUp';
 import { Card } from 'primereact/card';
-import Popup from 'react-popup';
-import Background from '../Background/Background';
-import { connect } from "react-redux";
+
 import axios from 'axios';
-// import { profileAction } from '../../actions/profileAction'
+
 import PropTypes from 'prop-types'
-import { Redirect } from 'react-router';
-import { fetchprofileAction } from '../../actions/profileAction';
+
 import Image from 'react-bootstrap/Image'
-import Button from 'react-bootstrap/Button';
+
 import CompanyNavbar from '../Company/CompanyNavbar';
 // import profilePic from '/logo192.png';
 
