@@ -33,6 +33,24 @@ router.post('/post-event', function(req,res){
         });
 });
 
+router.get('/get-events', function(req,res){
+    console.log("Inside Student Get Events Function");
+    var sql = "SELECT * FROM events"; 
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let events = [];
+        result.forEach(element => {
+              events.push(element)
+        });
+
+        res.end(JSON.stringify({
+            events
+        }));
+    });
+});
+
 
 
 module.exports = router;

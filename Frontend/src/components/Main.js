@@ -14,6 +14,7 @@ import StudentSearch from './Search/StudentSearch';
 import Searchresults from './Search/Searchresults';
 import StudentJobDashboard from './Jobs/StudentJobDashboard';
 import EventsPosting from './Events/EventsPosting';
+import EventsView from './Events/EventsView';
 
 class Main extends Component {
     render(){
@@ -34,6 +35,7 @@ class Main extends Component {
                 <Route exact path="/student-search" component={StudentSearch} />
                 <Route exact path="/search-results" component={Searchresults} />
                 <Route exact path="/student-job-dashboard" component={StudentJobDashboard} />
+                <Route exact path="/view-events" component={EventsView} />
             </div>
         )
     }
