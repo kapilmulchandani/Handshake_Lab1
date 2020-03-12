@@ -56,45 +56,17 @@ router.post('/login',function(req,resp){
         });
 });
 
-// router.post('/company-login',function(req,resp){    
-//     console.log("Inside Company Login Post Request");
-//         console.log(req.body.EmailIdData);
-//         console.log(req.body.PasswordData);
-//         console.log("Connected!");
-//         var sql = "select * from company_details where emailid='"+req.body.EmailIdData+"' and password='"+req.body.PasswordData+"';";
-//         connection.query(sql, function (err, result) {
-//             if (err) throw err;
-//             if(result.length == 1){
-//                 // console.log(result.length);
-//                 resp.writeHead(200, {
-//                     'Content-Type': 'application/json'
-//                 });
-//                 resp.end(JSON.stringify({
-//                     success: true,
-//                     message: "Successfull",
-//                     EmailId: result[0].emailid,
-//                     CompanyId: result[0].company_id
-//                 }));
-//             }
-//             else{
-//                 resp.writeHead(401, {
-//                     'Content-Type': 'application/json'
-//                 });
-//                 resp.end(JSON.stringify({
-//                     success: false,
-//                     message: "The username or password you entered is incorrect."
-//                 }));
-//             }     
-//         });
-// });
 
-router.get('/home', function(req,res){
 
-    console.log("Inside Home Login");    
-    res.writeHead(200,{
-        'Content-Type' : 'application/json'
-    });
-    res.end(JSON.stringify(books));       
+router.post('/get-major', function(req,res){
+
+    var sql = "SELECT major from student_info where student_id="+req.body.StudentIdData+";";
+    connection.query(sql, function(err, result){
+        if (err) throw err;
+        res.end(JSON.stringify({
+            StudentMajor: result
+        }));
+    })   
 });  
 
 router.post('/signup', function(req,res){

@@ -104,6 +104,9 @@ ADD description varchar(1255);
 ALTER TABLE company_details
 ADD contact_info varchar(1255);
 
+ALTER TABLE student_info
+ADD major varchar(100);
+
 
 SELECT CustomerName, City, Country
 FROM Customers

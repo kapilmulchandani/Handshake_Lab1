@@ -48,6 +48,7 @@ class EventsViewCard extends Component {
     }
 
     onRegister = (e) => {
+        var newArr = this.state.allEvents;
         e.preventDefault();
         e.stopPropagation();
         console.log({e});
@@ -55,8 +56,9 @@ class EventsViewCard extends Component {
         const eve_comp = e.currentTarget.title.split("##");
         localStorage.setItem("Event_Id",eve_comp[1] );
         localStorage.setItem("CompanyId",eve_comp[0] );
-
-        window.open('/register-event', '_self');
+        console.log('Register for ', newArr[eve_comp[1]-1]);
+       
+            window.open('/register-event', '_self');        
     }
 
     showEvent = (e) => {
@@ -105,7 +107,7 @@ class EventsViewCard extends Component {
                 <Navbar bg="dark" color="black" variant="dark">
                     <Navbar.Brand href="#home">Upcoming Events</Navbar.Brand>
                     
-                    <Navbar.Brand style={{position:'absolute', right:0}} href="#home">My Events</Navbar.Brand>
+                    <Navbar.Brand style={{position:'absolute', right:0}} href="/my-events">My Events</Navbar.Brand>
                 </Navbar>
 
                 <div className="row my-4">

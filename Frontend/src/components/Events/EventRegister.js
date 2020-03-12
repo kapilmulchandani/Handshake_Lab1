@@ -11,37 +11,62 @@ import axios from 'axios';
 var events = []
 events = JSON.parse(localStorage.getItem("Events"));
 var eventId = localStorage.getItem("Event_Id");
-
+var StudentMajor;
 var i;
+var EventMajor;
+
 class EventRegister extends Component {
     constructor(props) {
         super(props);
     }
 
     componentWillMount() {
+        console.log(document.referrer);
+        
         for (i = 0; i < events.length; i++) {
             if (events[i].event_id == eventId) {
+                EventMajor = events[i].event_eligibility;
                 break;
             }
         }
+        console.log(EventMajor);
+        axios.defaults.withCredentials = true;
+        const data = {
+            StudentIdData: localStorage.getItem('student_id')
+        };
+        axios.post('http://localhost:3001/get-major', data)
+            .then(response => {
+                console.log('REsponse', response.data.StudentMajor[0].major);
+                StudentMajor = response.data.StudentMajor[0].major;
+                localStorage.setItem('StudentMajor', StudentMajor);
+            });
+
+
     }
 
-    onRSVP = (e) =>{
+    onRSVP = (e) => {
         e.preventDefault();
         var compId = localStorage.getItem("CompanyId");
-        axios.defaults.withCredentials = true;
-        var eventsToShow = [];
-        const data = {
-            EventIdData : eventId,
-            CompanyIdData : compId,
-            StudentIdData : localStorage.getItem('student_id')
-        };
-        axios.post('http://localhost:3001/register-event', data)
-            .then(response => {
-                if (response.data === 'Successful_Insertion') {
-                    window.open('/view-events', "_self");
-                }
-            });
+        StudentMajor = localStorage.getItem('StudentMajor');
+        if (EventMajor == 'All' || EventMajor == StudentMajor) {
+            axios.defaults.withCredentials = true;
+            var eventsToShow = [];
+            const data = {
+                EventIdData: eventId,
+                CompanyIdData: compId,
+                StudentIdData: localStorage.getItem('student_id')
+            };
+            axios.post('http://localhost:3001/register-event', data)
+                .then(response => {
+                    if (response.data === 'Successful_Insertion') {
+                        window.open('/my-events', "_self");
+                    }
+                });
+        }
+
+        else{
+            alert('This event is not for '+StudentMajor+' students');
+        }
     }
     render() {
         return (
@@ -49,7 +74,7 @@ class EventRegister extends Component {
                 <StudentNavBar />
                 <Navbar bg="dark" color="black" variant="dark">
                     <Navbar.Brand href="#home">Registration Details</Navbar.Brand>
-                    <Navbar.Brand style={{ position: 'absolute', right: 0 }} href="#home">My Events</Navbar.Brand>
+                    <Navbar.Brand style={{ position: 'absolute', right: 0 }} href="/my-events">My Events</Navbar.Brand>
                 </Navbar>
                 <div className="row">
                     <div className="col-md-2"></div>
@@ -69,7 +94,11 @@ class EventRegister extends Component {
                                 </div>
 
                             </Card>
-                            <Button className='mx-4' onClick={this.onRSVP} label="RSVP" />
+                            {(document.referrer != 'http://localhost:3000/my-events') ?
+                                <Button className='mx-4' onClick={this.onRSVP} label="RSVP" /> : null
+                            }
+
+
                         </div>
                     </div>
                 </div>

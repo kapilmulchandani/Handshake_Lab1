@@ -51,6 +51,7 @@ class MyEvents extends Component {
     }
 
     onRegister = (e) => {
+        var newArr = this.state.allEvents;
         e.preventDefault();
         e.stopPropagation();
         console.log({e});
@@ -59,6 +60,7 @@ class MyEvents extends Component {
         localStorage.setItem("Event_Id",eve_comp[1] );
         localStorage.setItem("CompanyId",eve_comp[0] );
 
+        // console.log('Register for ', newArr[eve_comp[1]]);
         window.open('/register-event', '_self');
     }
 
@@ -106,7 +108,7 @@ class MyEvents extends Component {
             <div>
                 <StudentNavBar />
                 <Navbar bg="dark" color="black" variant="dark">
-                    <Navbar.Brand href="#home">My Events</Navbar.Brand>
+                    <Navbar.Brand href="/my-events">My Events</Navbar.Brand>
                 </Navbar>
 
                 <div className="row my-4">
