@@ -19,7 +19,7 @@ class StudentJobDashboard extends Component {
             <div>
                 <StudentNavbar />
                 <br />
-                <Card title="Poll" style={{ marginTop: '30px', marginLeft: '210px', width: '1104px', height: '160px' }}>
+                <Card title="" style={{ marginTop: '30px', marginLeft: '210px', width: '1104px', height: '160px' }}>
                     <Form inline className="mx-4 my-2">
                         <FormControl type="text" style={{ width: '700px' }} placeholder="Search" className="mr-sm-2" />
                         <Button label="Search" className="p-button-rounded p-button-secondary" />

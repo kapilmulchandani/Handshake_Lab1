@@ -46,6 +46,7 @@ class StudentNavbar extends Component {
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-job-dashboard">Jobs</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/view-events">Events</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-search">Search</Nav.Link>
+                     <Nav.Link style={{ position:'absolute', right:0, fontWeight:'bold', fontSize:18}} href="/student-search">Log Out</Nav.Link>
                   </Nav>
                </Navbar>
 

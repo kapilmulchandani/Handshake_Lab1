@@ -36,10 +36,14 @@ class EventsPosting extends Component {
 
         let eventDate = this.state.eventDate;
         debugger;
-
-        var EventDateString = eventDate.getFullYear() + '-'
-            + ('0' + (eventDate.getMonth() + 1)).slice(-2) + '-' + ('0' + eventDate.getDate()).slice(-2);
-
+        console.log(eventDate.getFullYear());
+        console.log(('0' + (eventDate.getMonth() + 1)).slice(-2));
+        console.log(('0' + eventDate.getDate()).slice(-2));
+        // var EventDateString = eventDate.getFullYear() + '-'
+        //     + ('0' + (eventDate.getMonth() + 1)).slice(-2) + '-' + ('0' + eventDate.getDate()).slice(-2);
+        //Yyyy-MM-dd
+        var EventDateString = eventDate.getFullYear() + '-' + ('0' + (eventDate.getMonth() + 1)).slice(-2) + '-' + ('0' + eventDate.getDate()).slice(-2);
+        
         const data = {
             CompanyIdData: company_id_no,
             EventIdData: this.state.eventId,
