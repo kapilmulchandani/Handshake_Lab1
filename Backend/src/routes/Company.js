@@ -108,12 +108,42 @@ router.post('/companysignup', function(req,res){
     });
 });
 
+router.post('/get-company-jobs', function(req,res){
+    console.log("Inside Company Get My Jobs Function");
+    var sql = "SELECT * FROM jobs_details where company_id="+req.body.CompanyIdData+";"; 
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let jobs = [];
+        result.forEach(element => {
+              jobs.push(element)
+        });
+
+        res.end(JSON.stringify({
+            jobs
+        }));
+    });
+});
 
 
-router.get('/create', function(req,res){
-    console.log("Request ---", req.body);
-    console.log("Request file ---", req.file);//Here you get file.
-       
+router.post('/get-applications', function(req,res){
+    console.log("Inside Company Get My Applications Function");
+    var sql = "SELECT * FROM student_info a INNER JOIN applications b on a.student_id = b.student_id where company_id="+req.body.CompanyIdData+" AND job_id="+req.body.JobIdData+";"; 
+    // SELECT * FROM student_details a INNER JOIN applications b on a.id = b.id
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let students = [];
+        result.forEach(element => {
+              students.push(element)
+        });
+
+        res.end(JSON.stringify({
+            students
+        }));
+    });
 });
 
 module.exports = router;

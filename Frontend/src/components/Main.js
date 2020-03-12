@@ -19,6 +19,8 @@ import EventRegister from './Events/EventRegister';
 import MyEvents from './Events/MyEvents';
 import MyJobs from './Jobs/MyJobs';
 import JobApply from './Jobs/JobApply';
+import CompanyJobs from './Company/CompanyJobs';
+import CompanyApplicationsReceived from './Company/CompanyApplicationsReceived';
 
 class Main extends Component {
     render(){
@@ -44,6 +46,8 @@ class Main extends Component {
                 <Route exact path="/my-events" component={MyEvents} />
                 <Route exact path="/my-jobs" component={MyJobs} />
                 <Route exact path="/job-apply" component={JobApply} />
+                <Route exact path="/company-jobs" component={CompanyJobs} />
+                <Route exact path="/applications-received" component={CompanyApplicationsReceived} />
             </div>
         )
     }

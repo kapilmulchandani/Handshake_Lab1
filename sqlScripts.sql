@@ -141,3 +141,4 @@ a.student_id = b.student_id
 
 -- EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number
 
+SELECT * FROM student_details a INNER JOIN applications b on a.id = b.id

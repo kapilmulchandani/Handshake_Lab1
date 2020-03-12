@@ -6,6 +6,8 @@ import { Button } from 'primereact/button';
 import '../../styles/jobPosting.css';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 
 class CompanyJobPosting extends Component {
     constructor(props) {
@@ -84,6 +86,10 @@ class CompanyJobPosting extends Component {
         return (
             <div>
                 <CompanyNavbar />
+                <Navbar bg="dark" color="black" variant="dark">
+                    <Navbar.Brand href="/company-job-posting">Post A Job</Navbar.Brand>
+                    <Navbar.Brand href="/company-jobs">Applications Received</Navbar.Brand>
+                </Navbar>
                 <div className="row"></div>
                 {/* <div className="row" style={{ backgroundColor: '#0f1035', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}> */}
                 <div className="row" style={{ backgroundColor: '', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}>
