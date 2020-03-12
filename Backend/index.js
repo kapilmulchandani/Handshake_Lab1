@@ -10,6 +10,7 @@ let profile = require("./src/routes/Profile");
 let company = require("./src/routes/Company");
 let search = require("./src/routes/Search");
 let events = require("./src/routes/Events");
+let jobs = require("./src/routes/Jobs");
 
 let app = express();
 
@@ -45,6 +46,7 @@ app.use("/", profile);
 app.use("/", company);
 app.use("/", search);
 app.use("/", events);
+app.use("/", jobs);
 
 let server = app.listen(3001, function () {
     console.log("Server listening on port 3001");

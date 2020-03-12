@@ -17,6 +17,8 @@ import EventsPosting from './Events/EventsPosting';
 import EventsViewCard from './Events/EventsViewCard';
 import EventRegister from './Events/EventRegister';
 import MyEvents from './Events/MyEvents';
+import MyJobs from './Jobs/MyJobs';
+import JobApply from './Jobs/JobApply';
 
 class Main extends Component {
     render(){
@@ -40,6 +42,8 @@ class Main extends Component {
                 <Route exact path="/view-events" component={EventsViewCard} />
                 <Route exact path="/register-event" component={EventRegister} />
                 <Route exact path="/my-events" component={MyEvents} />
+                <Route exact path="/my-jobs" component={MyJobs} />
+                <Route exact path="/job-apply" component={JobApply} />
             </div>
         )
     }

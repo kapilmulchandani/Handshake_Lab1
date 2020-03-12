@@ -28,7 +28,7 @@ router.post('/post-job', function(req,res){
         console.log("Inside Company Post SignUp Function");
         // console.log(req.body);
         // console.log("Connected!");
-        var sql = "INSERT INTO jobs_details (job_id, company_id, title, posting_date, app_deadline, company_location, salary, job_description, job_category) VALUES ('"+req.body.JobIdData+"', '"+req.body.CompanyIdData+"', '" +req.body.JobTitleData+"', '"+ req.body.PostingDateData+"', '"+req.body.ApplicationDeadlineData+"', '"+ req.body.LocationData+"', '"+req.body.SalaryData+"', '" + req.body.JobDescriptionData+ "', '"+req.body.JobCategoryData+ "');";
+        var sql = "INSERT INTO jobs_details (job_id, company_id, title, posting_date, app_deadline, location, salary, job_description, job_category) VALUES ('"+req.body.JobIdData+"', '"+req.body.CompanyIdData+"', '" +req.body.JobTitleData+"', '"+ req.body.PostingDateData+"', '"+req.body.ApplicationDeadlineData+"', '"+ req.body.LocationData+"', '"+req.body.SalaryData+"', '" + req.body.JobDescriptionData+ "', '"+req.body.JobCategoryData+ "');";
         connection.query(sql, function (err, result) {
             if (err) throw err;
             console.log('Success');

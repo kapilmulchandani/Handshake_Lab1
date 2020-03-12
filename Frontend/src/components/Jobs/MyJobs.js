@@ -1,7 +1,7 @@
 import { DataScroller } from 'primereact/datascroller';
 import React, { Component } from 'react';
 import axios from 'axios';
-import DataScrollerSubmenu from './DataScrollerSubmenu';
+
 import { Card } from 'primereact/card';
 import StudentNavBar from '../Account/StudentNavbar';
 import { Button } from 'primereact/button';
@@ -11,19 +11,13 @@ import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
 
-var arr = [];
 
-for (var i = 0; i < 10; i++) {
-
-    arr.push(i);
-
-}
 var renderedOutput;
-class MyEvents extends Component {
+class MyJobs extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            allEvents: [],
+            allJobs: [],
             i: 0
         };
 
@@ -33,17 +27,17 @@ class MyEvents extends Component {
     componentWillMount() {
 
         axios.defaults.withCredentials = true;
-        var eventsToShow = [];
+        var jobsToShow = [];
         const data = {
             StudentIdData : JSON.parse(localStorage.getItem("loggedInUser")).StudentId
         }
-        axios.post('http://localhost:3001/get-my-events', data)
+        axios.post('http://localhost:3001/get-my-jobs', data)
             .then(response => {
-                eventsToShow = JSON.stringify(response.data.events);
-                localStorage.setItem('Events', eventsToShow);
+                jobsToShow = JSON.stringify(response.data.jobs);
+                localStorage.setItem('Jobs', jobsToShow);
                 this.setState({
 
-                    allEvents: JSON.parse(localStorage.getItem("Events"))
+                    allJobs: JSON.parse(localStorage.getItem("Jobs"))
                 })
 
             });
@@ -51,13 +45,13 @@ class MyEvents extends Component {
     }
 
     onRegister = (e) => {
-        var newArr = this.state.allEvents;
+        var newArr = this.state.allJobs;
         e.preventDefault();
         e.stopPropagation();
         console.log({e});
         
         const eve_comp = e.currentTarget.title.split("##");
-        localStorage.setItem("Event_Id",eve_comp[1] );
+        localStorage.setItem("Job_Id",eve_comp[1] );
         localStorage.setItem("CompanyId",eve_comp[0] );
 
         // console.log('Register for ', newArr[eve_comp[1]]);
@@ -65,7 +59,7 @@ class MyEvents extends Component {
     }
 
     showEvent = (e) => {
-        var newArr = this.state.allEvents;
+        var newArr = this.state.allJobs;
         console.log(newArr);
         
         // var EventDateString = eventDate.getFullYear() + '-' + ('0' + (eventDate.getMonth() + 1)).slice(-2) + '-' + ('0' + eventDate.getDate()).slice(-2);
@@ -77,24 +71,25 @@ class MyEvents extends Component {
                     <Card title="" style={{ display: 'inline-block', width: '804px', height: '200px' }}>
                         <div className="row">
                             <div className="col-md-3">
-                                <Image src={'/amazon.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
+                                <Image src={'/'+item.company_id+'.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
                             </div>
                             <div className="col-md-7 mx-5">
                                 <div className="row">
-                                    <h3>{item.event_name}</h3>
+                                    <h3>{item.title}</h3>
                                     <div className="col-md-1"></div>
-                                    <Button title={item.company_id+"##"+item.event_id} style={{ position:'absolute', top:0, right:0}} onClick={this.onRegister} label="View" />
+                                    
                                 </div>
                                 <div className="row">
-                                    <h6>{item.event_location}</h6>
+                                    <h6>{item.location}</h6>
                                 </div>
                                 <div className="row">
                                     {/* <h6>{item.event_date}</h6> */}
-                                    <h6>{new Date(item.event_date).getMonth() + '/' + new Date(item.event_date).getDate() + '/' + new Date(item.event_date).getFullYear()}</h6>
+                                    <h6>{new Date(item.app_deadline).getMonth() + '/' + new Date(item.app_deadline).getDate() + '/' + new Date(item.app_deadline).getFullYear()}</h6>
                                 </div>
                                 <div className="row">
-                                    <h6>{item.event_time}</h6>
+                                    <h6>{item.job_category}</h6>
                                 </div>
+                                <Button title={item.company_id+"##"+item.job_id} onClick={this.onRegister} label="View" />
                             </div>
                         </div>
                     </Card>
@@ -135,4 +130,4 @@ class MyEvents extends Component {
     }
 }
 
-export default MyEvents;
+export default MyJobs;

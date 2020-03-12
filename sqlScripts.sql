@@ -66,10 +66,12 @@ CREATE TABLE applications
 (
     student_id INT NOT NULL,
     job_id INT NOT NULL,
+    company_id INT NOT NULL,
     application_status ENUM('pending', 'reviewed', 'declined'),
-    PRIMARY KEY(student_id, job_id),
+    PRIMARY KEY(student_id, job_id, company_id),
     FOREIGN KEY (student_id) REFERENCES student_info(student_id),
-    FOREIGN KEY (job_id) REFERENCES jobs_details(job_id)
+    FOREIGN KEY (job_id) REFERENCES jobs_details(job_id),
+    FOREIGN KEY (company_id) REFERENCES company_details(company_id)
     
 );
 
@@ -106,6 +108,8 @@ ADD contact_info varchar(1255);
 
 ALTER TABLE student_info
 ADD major varchar(100);
+
+
 
 
 SELECT CustomerName, City, Country

@@ -76,10 +76,10 @@ class CompanyJobPosting extends Component {
 
     render() {
         const jobCategories = [
-            { label: "Full Time", value: 'full-time' },
-            { label: "Part Time", value: 'part-time' },
-            { label: "Intern", value: 'intern' },
-            { label: "On Campus", value: 'on-campus' }
+            { label: "Full Time", value: 'Full-Time' },
+            { label: "Part Time", value: 'Part-Time' },
+            { label: "Intern", value: 'Intern' },
+            { label: "On Campus", value: 'On-Campus' }
         ];
         return (
             <div>

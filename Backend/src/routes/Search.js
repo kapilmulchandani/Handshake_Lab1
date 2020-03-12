@@ -73,4 +73,41 @@ router.post('/search-students', function (req, res) {
     });
 });
 
+router.post('/searchQuery', function(req,res){
+    console.log("Inside Search Jobs Function");
+    var sql = "SELECT * FROM jobs_details where title LIKE '%"+req.body.SearchTextData+"%'";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let jobs = [];
+        result.forEach(element => {
+              jobs.push(element)
+        });
+
+        res.end(JSON.stringify({
+            jobs
+        }));
+    });
+});
+
+
+router.post('/filterQuery', function(req,res){
+    console.log("Inside Filter Jobs Function");
+    var sql = "SELECT * FROM jobs_details where job_category ='"+req.body.CategoryData+"'";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let jobs = [];
+        result.forEach(element => {
+              jobs.push(element)
+        });
+
+        res.end(JSON.stringify({
+            jobs
+        }));
+    });
+});
+
 module.exports = router;

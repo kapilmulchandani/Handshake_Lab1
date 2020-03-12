@@ -20,7 +20,7 @@ class StudentProfileView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            student_id: localStorage.getItem("student_id"),
+            student_id: JSON.parse(localStorage.getItem("loggedInUser")).StudentId,
             EmailId: '',
             data: null,
             flag: 1,

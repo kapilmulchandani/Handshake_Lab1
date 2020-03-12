@@ -41,7 +41,8 @@ router.post('/login',function(req,resp){
                 resp.end(JSON.stringify({
                     success: true,
                     message: "Successfull",
-                    EmailId: result[0].emailid
+                    EmailId: result[0].emailid,
+                    StudentId: result[0].student_id
                 }));
             }
             else{
@@ -88,14 +89,6 @@ router.post('/signup', function(req,res){
 });
 
 
-router.post('/companysignup', function(req,res){
-    console.log("Inside Company Post SignUp Function");
-    var sql = "INSERT INTO company_details (name, emailid, password, location) VALUES ('"+req.body.CompanyNameData+"', '"+ req.body.EmailIdData+"', '"+req.body.PasswordData+"', '"+ req.body.LocationData+"')";
-     connection.query(sql, function (err, result) {
-        if (err) throw err;
-        res.end("Successful_Insertion");
-    });
-});
 
 
 

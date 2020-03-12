@@ -13,6 +13,7 @@ export const loginAction = (credential) =>  (dispatch) => {
         console.log(response);
         localStorage.setItem("loggedInUser", JSON.stringify({
             EmailId: response.data.EmailId,
+            StudentId: response.data.StudentId
         }));
         dispatch({
             type: LOGIN_SUCCESS,

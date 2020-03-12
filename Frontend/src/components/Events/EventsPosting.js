@@ -6,6 +6,7 @@ import { Button } from 'primereact/button';
 import '../../styles/jobPosting.css';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
+import getURL from '../../actions/url';
 
 class EventsPosting extends Component {
     constructor(props) {
@@ -57,7 +58,7 @@ class EventsPosting extends Component {
         console.log(data);
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/post-event', data)
+        axios.post(getURL('post-event'), data)
             .then(response => {
                 console.log("Status Code Create : ", response.data);
                 if (response.data === 'Successful_Insertion') {

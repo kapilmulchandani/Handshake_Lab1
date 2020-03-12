@@ -10,14 +10,8 @@ import FormControl from 'react-bootstrap/FormControl'
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
+import getURL from '../../actions/url';
 
-var arr = [];
-
-for (var i = 0; i < 10; i++) {
-
-    arr.push(i);
-
-}
 var renderedOutput;
 class EventsViewCard extends Component {
     constructor(props) {
@@ -34,7 +28,7 @@ class EventsViewCard extends Component {
 
         axios.defaults.withCredentials = true;
         var eventsToShow = [];
-        axios.get('http://localhost:3001/get-events')
+        axios.get(getURL('get-events'))
             .then(response => {
                 eventsToShow = JSON.stringify(response.data.events);
                 localStorage.setItem('Events', eventsToShow);
