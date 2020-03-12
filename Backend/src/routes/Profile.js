@@ -125,7 +125,7 @@ let upload = multer({
     storage: storage,
     limits: { fileSize: 1000000 },
 });
-router.post('/upload', upload.single('myImage'), function (req, res) {
+router.post('/uploadprofile', upload.single('myImage'), function (req, res) {
     console.log("Request ---", req.body);
     console.log("Request file ---", req.file);//Here you get file.
     res.end(JSON.stringify({

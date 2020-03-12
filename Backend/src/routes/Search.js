@@ -110,4 +110,23 @@ router.post('/filterQuery', function(req,res){
     });
 });
 
+
+router.post('/filter-application-status-query', function(req,res){
+    console.log("Inside Filter Application Status Jobs Function");
+    var sql = "SELECT * FROM jobs_details where job_id in (SELECT job_id FROM applications WHERE student_id ="+req.body.StudentIdData +" AND application_status='"+req.body.ApplicationStatusData+"') AND company_id in (SELECT company_id FROM applications WHERE student_id ="+req.body.StudentIdData +" AND application_status='"+req.body.ApplicationStatusData+"')";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let jobs = [];
+        result.forEach(element => {
+              jobs.push(element)
+        });
+
+        res.end(JSON.stringify({
+            jobs
+        }));
+    });
+});
+
 module.exports = router;

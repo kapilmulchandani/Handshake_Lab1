@@ -4,6 +4,8 @@ var bodyParser = require('body-parser');
 var session = require('express-session');
 var cookieParser = require('cookie-parser');
 var cors = require('cors');
+const path = require("path");
+const multer = require("multer");
 
 const router = express.Router();
 
@@ -60,6 +62,42 @@ router.post('/get-my-jobs', function(req,res){
 router.post('/apply-job', function(req,res){
     console.log("Inside Student Apply Job Function");
     var sql = "INSERT INTO applications (student_id, job_id, company_id, application_status) VALUES ('"+req.body.StudentIdData+"', '"+req.body.JobIdData+"', '"+req.body.CompanyIdData+"', '"+ req.body.ApplicationStatusData +"');";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log('Success');
+        res.end("Successful_Insertion");
+    });
+});
+
+var storage = multer.diskStorage({
+    destination: function (req, file, cb) {
+    cb(null, 'public/uploads')
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname )
+  }
+})
+
+var upload = multer({ storage: storage }).single('file')
+
+router.post('/upload',function(req, res) {
+     
+    upload(req, res, function (err) {
+           if (err instanceof multer.MulterError) {
+               return res.status(500).json(err)
+           } else if (err) {
+               return res.status(500).json(err)
+           }
+      return res.status(200).send(req.file)
+
+    })
+
+});
+
+
+router.post('/update-status', function(req,res){
+    console.log("Inside Student Update Job Category Function");
+    var sql = "UPDATE applications SET application_status = '"+req.body.ApplicationStatusData+"' WHERE student_id='"+req.body.StudentIdData+"' AND company_id='"+req.body.CompanyIdData+"' AND job_id='"+req.body.JobIdData+"';";
     connection.query(sql, function (err, result) {
         if (err) throw err;
         console.log('Success');

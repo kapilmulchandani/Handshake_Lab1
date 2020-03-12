@@ -19,30 +19,43 @@ var EventMajor;
 class JobApply extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            selectedFile: null,
+            studentId: 0
+        }
     }
 
     componentWillMount() {
         console.log(document.referrer);
-        
+
         for (i = 0; i < jobs.length; i++) {
             if (jobs[i].job_id == jobId && jobs[i].company_id == CompanyId) {
                 // EventMajor = events[i].event_eligibility;
                 break;
             }
         }
-        // console.log(EventMajor);
-        // axios.defaults.withCredentials = true;
-        // const data = {
-        //     StudentIdData: localStorage.getItem('student_id')
-        // };
-        // axios.post('http://localhost:3001/get-major', data)
-        //     .then(response => {
-        //         console.log('REsponse', response.data.StudentMajor[0].major);
-        //         StudentMajor = response.data.StudentMajor[0].major;
-        //         localStorage.setItem('StudentMajor', StudentMajor);
-        //     });
 
 
+    }
+
+    onChangeHandler = event => {
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+            studentId: JSON.parse(localStorage.getItem("loggedInUser")).StudentId
+        })
+    }
+
+    onClickHandler = () => {
+        const data = new FormData()
+        data.append('file', this.state.selectedFile);
+        console.log(data);
+        axios.post("http://localhost:3001/upload", data)
+            .then(res => { // then print response status
+                console.log(res.statusText)
+                alert('Resume Uploaded Successfully');
+            });
+        // receive two    parameter endpoint url ,form data
     }
 
     onRSVP = (e) => {
@@ -50,20 +63,20 @@ class JobApply extends Component {
         var compId = localStorage.getItem("CompanyId");
         // StudentMajor = localStorage.getItem('StudentMajor');
         // if (EventMajor == 'All' || EventMajor == StudentMajor) {
-            axios.defaults.withCredentials = true;
-            var eventsToShow = [];
-            const data = {
-                JobIdData: jobId,
-                CompanyIdData: compId,
-                StudentIdData: JSON.parse(localStorage.getItem("loggedInUser")).StudentId,
-                ApplicationStatusData : 'pending'
-            };
-            axios.post('http://localhost:3001/apply-job', data)
-                .then(response => {
-                    if (response.data === 'Successful_Insertion') {
-                        window.open('/my-jobs', "_self");
-                    }
-                });
+        axios.defaults.withCredentials = true;
+        var eventsToShow = [];
+        const data = {
+            JobIdData: jobId,
+            CompanyIdData: compId,
+            StudentIdData: JSON.parse(localStorage.getItem("loggedInUser")).StudentId,
+            ApplicationStatusData: 'pending'
+        };
+        axios.post('http://localhost:3001/apply-job', data)
+            .then(response => {
+                if (response.data === 'Successful_Insertion') {
+                    window.open('/my-jobs', "_self");
+                }
+            });
         // }
 
         // else{
@@ -83,7 +96,7 @@ class JobApply extends Component {
                     <div className="col-md-8 mx-2 my-4">
                         <Card className="my-4" Title="" style={{ width: '' }}>
                             <div className="row">
-                                <Image src={'/' + jobs[i].company_id + '.jpg'} style={{ marginLeft: '70px', width: '450px' }} />
+                                <Image src={'/' + jobs[i].company_id + '-cover.jpg'} style={{ marginLeft: '70px', width: '450px' }} />
                             </div>
                         </Card>
                         <div className="row">
@@ -96,11 +109,17 @@ class JobApply extends Component {
                                 </div>
 
                             </Card>
+                            <div className="col-md-3 mx-2">
+                                <h5> <strong>Upload Resume</strong></h5>
+                                <input type="file" name="file" onChange={this.onChangeHandler} />
+                            
+                                <Button className="my-2" label="Upload" onClick={this.onClickHandler}></Button>
+                            </div>
+                        </div>
+                        <div className="mx-3 my-3 row">
                             {(document.referrer != 'http://localhost:3000/my-events') ?
                                 <Button className='mx-4' onClick={this.onRSVP} label="Apply" /> : null
                             }
-
-
                         </div>
                     </div>
                 </div>
