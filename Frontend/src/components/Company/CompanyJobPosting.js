@@ -67,6 +67,7 @@ class CompanyJobPosting extends Component {
                 console.log("Status Code Create : ", response.data);
                 if (response.data === 'Successful_Insertion') {
                     alert('Saved Successfully');
+                    window.open('/company-job-posting', '_self');
                 }
 
             });

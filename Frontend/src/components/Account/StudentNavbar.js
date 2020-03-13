@@ -14,10 +14,10 @@ class StudentNavbar extends Component {
 
       this.state = {
       };
-      this.logout = this.logout.bind(this);
+      this.onLogout = this.onLogout.bind(this);
    }
 
-   logout = (e) => {
+   onLogout = (e) => {
       localStorage.clear();
       this.setState({})
    }
@@ -41,12 +41,12 @@ class StudentNavbar extends Component {
                {/* <Navbar.Brand href="#home">Navbar</Navbar.Brand> */}
                <Nav className="mr-auto">
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#home">Home</Nav.Link>
-                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/company-profile">Profile</Nav.Link>
+                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/profile">Profile</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-search">Applications</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-job-dashboard">Jobs</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/view-events">Events</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-search">Search</Nav.Link>
-                     <Nav.Link style={{ position:'absolute', right:0, fontWeight:'bold', fontSize:18}} href="/student-search">Log Out</Nav.Link>
+                     <Nav.Link style={{ position:'absolute', right:0, fontWeight:'bold', fontSize:18}} onClick={this.onLogout}>Log Out</Nav.Link>
                   </Nav>
                </Navbar>
 

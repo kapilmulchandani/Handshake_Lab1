@@ -22,6 +22,9 @@ import JobApply from './Jobs/JobApply';
 import CompanyJobs from './Company/CompanyJobs';
 import CompanyApplicationsReceived from './Company/CompanyApplicationsReceived';
 import ViewResume from './Account/ViewResume';
+import StudentProfileView from './Account/StudentProfileView';
+import EventRegistrations from './Events/EventRegistrations';
+import EventRegistrationReceived from './Events/EventRegistrationReceived';
 
 class Main extends Component {
     render(){
@@ -50,6 +53,9 @@ class Main extends Component {
                 <Route exact path="/company-jobs" component={CompanyJobs} />
                 <Route exact path="/applications-received" component={CompanyApplicationsReceived} />
                 <Route exact path="/view-resume" component={ViewResume} />
+                <Route exact path="/student-profile-view" component={StudentProfileView} />
+                <Route exact path="/event-registrations" component={EventRegistrations} />
+                <Route exact path="/registrations-received" component={EventRegistrationReceived} />
             </div>
         )
     }

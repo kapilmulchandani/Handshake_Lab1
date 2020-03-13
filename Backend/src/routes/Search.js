@@ -92,6 +92,24 @@ router.post('/searchQuery', function(req,res){
 });
 
 
+router.post('/searchEventsQuery', function(req,res){
+    console.log("Inside Search Events Function");
+    var sql = "SELECT * FROM events where event_name LIKE '%"+req.body.SearchTextData+"%'";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let events = [];
+        result.forEach(element => {
+              events.push(element)
+        });
+
+        res.end(JSON.stringify({
+            events
+        }));
+    });
+});
+
 router.post('/filterQuery', function(req,res){
     console.log("Inside Filter Jobs Function");
     var sql = "SELECT * FROM jobs_details where job_category ='"+req.body.CategoryData+"'";

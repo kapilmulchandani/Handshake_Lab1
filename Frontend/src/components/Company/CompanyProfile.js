@@ -4,7 +4,8 @@ import CompanyNavbar from './CompanyNavbar';
 import { Card } from 'primereact/card';
 import { InputTextarea } from 'primereact/inputtextarea';
 import Image from 'react-bootstrap/Image'
-import Button from 'react-bootstrap/Button';
+// import Button from 'react-bootstrap/Button';
+import { Button } from 'primereact/button';
 
 class CompanyProfile extends Component {
     constructor(props) {
@@ -35,6 +36,26 @@ class CompanyProfile extends Component {
             editable: true,
             [e.target.name]: e.target.value
         })
+    }
+
+    onChangeHandler = event => {
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+            company_id: this.state.company_id
+        })
+    }
+
+    onClickHandler = () => {
+        const data = new FormData()
+        data.append('file', this.state.selectedFile);
+        console.log(data);
+        axios.post("http://localhost:3001/upload", data)
+            .then(res => { // then print response status
+                console.log(res.statusText)
+                alert('File Uploaded Successfully');
+            });
+        // receive two    parameter endpoint url ,form data
     }
 
     saveData = (e) => {
@@ -97,12 +118,12 @@ class CompanyProfile extends Component {
             <div>
                 <CompanyNavbar />
                 <div className="content-section implementation">
-                    <Card title="" style={{ display: 'inline-block', marginTop: '30px', marginLeft: '210px', width: '304px', height: '280px' }}>
+                    <Card title="" style={{ display: 'inline-block', marginTop: '30px', marginLeft: '210px', width: '304px', height: '310px' }}>
                         <div>
-                            <Image src={'/logo192.png'} roundedCircle='true' />
+                            <Image className="mx-2 my-2" style={{width:'200px', height:'200px'}} src={'/company_'+ this.state.company_id+'.png'}  />
                             <form onSubmit={this.onProfilePicSave}>
-                                <input type="file" accept="image/jpg, image/png" name="myImage" onChange={this.onProfilePicChange} />
-                                <button type="submit">Upload</button>
+                                <input type="file" accept="image/jpg, image/png" name="myImage" onChange={this.onChangeHandler} />
+                                <Button className="my-2" label="Upload" onClick={this.onClickHandler} />
                             </form>
                         </div>
                     </Card>

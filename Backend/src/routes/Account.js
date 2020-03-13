@@ -74,7 +74,7 @@ router.post('/signup', function(req,res){
         console.log("Inside Post SignUp Function");
         // console.log(req.body);
         // console.log("Connected!");
-        var sql = "INSERT INTO student_info (first_name, last_name, emailid, college_name, password) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"')";
+        var sql = "INSERT INTO student_info (first_name, last_name, emailid, college_name, password, major) VALUES ('"+req.body.FirstNameData+"', '"+ req.body.LastNameData+"', '"+req.body.EmailIdData+"', '"+ req.body.CollegeData+"', '"+req.body.PasswordData+"', '"+req.body.MajorData+"')";
         var sql2 = "INSERT INTO student_details (emailid, city, dob, journey, education, work_exp, org_achieve, skills, mobile_number) VALUES ('"+req.body.EmailIdData+"', '', '2020-02-02', '', '', '', '', '', 99211);";
         connection.query(sql, function (err, result) {
             if (err) throw err;

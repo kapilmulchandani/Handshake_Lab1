@@ -7,6 +7,8 @@ import '../../styles/jobPosting.css';
 import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import getURL from '../../actions/url';
+import { Navbar } from 'react-bootstrap';
+import { Nav } from 'react-bootstrap';
 
 class EventsPosting extends Component {
     constructor(props) {
@@ -63,6 +65,7 @@ class EventsPosting extends Component {
                 console.log("Status Code Create : ", response.data);
                 if (response.data === 'Successful_Insertion') {
                     alert('Saved Successfully');
+                    window.open('/events-posting', '_self');
                 }
 
             });
@@ -82,6 +85,10 @@ class EventsPosting extends Component {
         return (
             <div>
                 <CompanyNavbar />
+                <Navbar bg="dark" color="black" variant="dark">
+                    <Navbar.Brand href="/my-events">Post Event</Navbar.Brand>
+                    <Navbar.Brand href="/event-registrations">Registrations</Navbar.Brand>
+                </Navbar>
                 <div className="row"></div>
                 {/* <div className="row" style={{ backgroundColor: '#0f1035', fontFamily: 'Times New Roman', fontSize: 40, color: 'white', fontWeight: 'bold', height: '250px' }}> */}
                 <br />

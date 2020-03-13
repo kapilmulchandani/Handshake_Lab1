@@ -14,12 +14,13 @@ class CompanyNavbar extends Component {
 
       this.state = {
       };
-      this.logout = this.logout.bind(this);
+      this.clickLogout = this.clickLogout.bind(this);
    }
 
-   logout = (e) => {
+   clickLogout = (e) => {
       localStorage.clear();
       this.setState({})
+      window.open('/', '_self');
    }
 
    render() {
@@ -39,8 +40,10 @@ class CompanyNavbar extends Component {
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#home">Home</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/company-profile">Profile</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/company-job-posting">Jobs</Nav.Link>
-                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="#hello">Events</Nav.Link>
+                     <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="events-posting">Events</Nav.Link>
                      <Nav.Link style={{ fontWeight:'bold', fontSize:18}} href="/student-search">Search</Nav.Link>
+
+                     <Nav.Link style={{ position:'absolute', fontWeight:'bold', fontSize:18, right:0}} onClick={this.clickLogout} >Log Out</Nav.Link>
                   </Nav>
                </Navbar>
 

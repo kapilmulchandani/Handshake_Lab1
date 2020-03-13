@@ -34,7 +34,7 @@ class Searchresults extends Component {
             const { student_id, email_id, first_name, last_name, skills, college_name } = studentsArray //destructuring
             return (
                 <tr key={student_id}>
-                    <td  id = "tdid" onClick={this.logValue} >{student_id}</td>
+                    <td  id = "tdid" name={student_id} onClick={this.logValue} >{student_id}</td>
                     <td>{email_id}</td>
                     <td>{first_name}</td>
                     <td>{last_name}</td>

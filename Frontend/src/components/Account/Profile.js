@@ -8,7 +8,6 @@ import '../../styles/profile.css';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Menubar } from 'primereact/menubar';
-// import { Button } from 'primereact/button';
 import { InputText } from "primereact/inputtext";
 import StudentNavbar from './StudentNavbar';
 import SignUp from './SignUp';
@@ -22,7 +21,7 @@ import PropTypes from 'prop-types'
 import { Redirect } from 'react-router';
 import { fetchprofileAction } from '../../actions/profileAction';
 import Image from 'react-bootstrap/Image'
-import Button from 'react-bootstrap/Button';
+import { Button } from 'primereact/button';
 // import profilePic from '/logo192.png';
 
 class Profile extends Component {
@@ -31,11 +30,13 @@ class Profile extends Component {
         this.state = {
             EmailId: JSON.parse(localStorage.getItem("loggedInUser")).EmailId,
             data: null,
+            skillseditable: false,
             journeyeditable: false,
             educationeditable: false,
             workExpeditable: false,
             orgAchieveeditable: false,
             journeyeditable: false,
+            majorEditable: false,
             flag: 1,
             journey: '',
             education: '',
@@ -43,6 +44,7 @@ class Profile extends Component {
             orgAchieve: '',
             skills: '',
             mobile_number: 99211,
+            major: '',
             file: null
 
         };
@@ -96,8 +98,9 @@ class Profile extends Component {
             educationData: this.state.education,
             workExpData: this.state.workExp,
             orgAchieveData: this.state.orgAchieve,
-            skillsData: this.state.skills,
-            mobile_numberData: this.state.mobile_number
+            skillsData: ','+this.state.skills+',',
+            mobile_numberData: this.state.mobile_number,
+            majorData: this.state.major
 
         }
         axios.post('http://10.0.0.251:3001/save', data)
@@ -121,7 +124,9 @@ class Profile extends Component {
             journeyeditable: false,
             educationeditable: false,
             workExpeditable: false,
-            orgAchieveeditable: false
+            orgAchieveeditable: false,
+            skillseditable: false,
+            majorEditable: false
         });
         this.forceUpdate();
     }
@@ -131,6 +136,26 @@ class Profile extends Component {
             flag: 2
         })
         this.getData();
+    }
+
+    onChangeHandler = event => {
+        this.setState({
+            selectedFile: event.target.files[0],
+            loaded: 0,
+            student_id: localStorage.getItem('loggedInUser').StudentId
+        })
+    }
+
+    onClickHandler = () => {
+        const data = new FormData()
+        data.append('file', this.state.selectedFile);
+        console.log(data);
+        axios.post("http://localhost:3001/upload", data)
+            .then(res => { // then print response status
+                console.log(res.statusText)
+                alert('File Uploaded Successfully');
+            });
+        // receive two    parameter endpoint url ,form data
     }
 
     async getData() {
@@ -147,8 +172,10 @@ class Profile extends Component {
                         education: newData.education,
                         workExp: newData.workExp,
                         orgAchieve: newData.orgAchieve,
-                        skills: newData.skills,
-                        mobile_number: newData.mobile_number
+                        skills: newData.skills.substring(1, newData.skills.length-1),
+                        // yourString.substring(1, yourString.length-1);
+                        mobile_number: newData.mobile_number,
+                        major: newData.major
                     })
 
                 });
@@ -182,10 +209,10 @@ class Profile extends Component {
                 <div className="content-section implementation">
                     <Card title="" style={{ display: 'inline-block', marginTop: '30px', marginLeft: '210px', width: '304px', height: '280px' }}>
                         <div>
-                        <Image src={'/logo192.png'} roundedCircle='true' />
+                            <Image src={'/logo192.png'} roundedCircle='true' />
                             <form onSubmit={this.onProfilePicSave}>
-                                <input type="file" accept="image/jpeg, image/png" name="myImage" onChange={this.onProfilePicChange} />
-                                <button type="submit">Upload</button>
+                                <input type="file" accept="image/jpg, image/png" name="myImage" onChange={this.onChangeHandler} />
+                                <Button className="my-2" label="Upload" onClick={this.onClickHandler} />
                             </form>
                         </div>
                     </Card>
@@ -209,15 +236,37 @@ class Profile extends Component {
                         {this.state.journeyeditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="journeyeditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                <Button  name="journeyeditable" onClick={this.saveData} className="col-3 m-1" label="Save"></Button>
+                                <Button  onClick={this.cancelButton} className="col-3 m-1" label="Cancel" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }
                     </Card>
 
 
-                    <Card title="" style={{ position: 'absolute', top: '380px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
+                    <Card title="" style={{ position: 'absolute', top: '380px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '170px' }}>
+                    <div className="row">
+                            <div className="col-9">
+                                <h5><strong>Major</strong></h5>
+                            </div>
+                            {/* <div className="col-3">
+                                <label id="edit-photo" className="btn btn-default btn-icon-circle" title="" type="button" placeholder="">
+                                    <i className="material-icons blue006">edit</i>
+                                    <input type="button" id="profile-input" className="d-none" name="majorEditable" onClick={this.onEdit}></input>
+                                </label>
+                            </div> */}
+                        </div>
+                        <div className='mx-3 mb-3 my-2 row'>
+                            <InputTextarea name="major" rows={2} cols={55} onChange={this.handleEdit} disabled={(this.state.majorEditable) ? "" : "disabled"} value={this.state.major} autoResize={true}></InputTextarea>
+                        </div>
+                        {/* {this.state.majorEditable ?
+                            <div className="row">
+                                <div className="col-3"></div>
+                                <Button label="Save" name="majorEditable" onClick={this.saveData} className="mx-1"></Button>
+                                <Button label="Cancel" onClick={this.cancelButton}  ></Button>
+                                <div className="col-3"></div>
+                            </div> : null
+                        } */}
                     </Card>
 
 
@@ -240,15 +289,36 @@ class Profile extends Component {
                         {this.state.educationeditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="educationeditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                <Button  label ="Save" name="educationeditable" onClick={this.saveData} className="col-3 m-1" ></Button>
+                                <Button label="Cancel" onClick={this.cancelButton} className="col-3 m-1" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }
                     </Card>
 
-                    <Card title="Skills" subTitle="Subtitle" style={{ position: 'absolute', top: '980px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
-                        <div>{this.state.skills}</div>
+                    <Card title="" style={{ position: 'absolute', top: '580px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
+                        <div className="row">
+                            <div className="col-9">
+                                <h5><strong>Skills</strong></h5>
+                            </div>
+                            <div className="col-3">
+                                <label id="edit-photo" className="btn btn-default btn-icon-circle" title="" type="button" placeholder="">
+                                    <i className="material-icons blue006">edit</i>
+                                    <input type="button" id="profile-input" className="d-none" name="skillseditable" onClick={this.onEdit}></input>
+                                </label>
+                            </div>
+                        </div>
+                        <div className='mx-3 mb-3 row'>
+                            <InputTextarea name="skills" rows={20} cols={55} onChange={this.handleEdit} disabled={(this.state.skillseditable) ? "" : "disabled"} value={this.state.skills} autoResize={true}></InputTextarea>
+                        </div>
+                        {this.state.skillseditable ?
+                            <div className="row">
+                                <div className="col-3"></div>
+                                <Button label="Save" name="skillseditable" onClick={this.saveData} className="mx-1"></Button>
+                                <Button label="Cancel" onClick={this.cancelButton}  ></Button>
+                                <div className="col-3"></div>
+                            </div> : null
+                        }
                     </Card>
 
                     <Card title="" style={{ position: 'absolute', left: '340px', top: '1280px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '484px', height: '580px' }}>
@@ -269,16 +339,11 @@ class Profile extends Component {
                         {this.state.workExpeditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="workExpeditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                <Button label="Save" name="workExpeditable" onClick={this.saveData} className="col-3 m-1" ></Button>
+                                <Button label="Cancel" onClick={this.cancelButton} className="col-3 m-1" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }
-                    </Card>
-
-                    <Card title="" subTitle="Subtitle" style={{ position: 'absolute', top: '1580px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }} className="ui-card-shadow" footer={footer} header={header}>
-                        <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
-                            quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</div>
                     </Card>
 
                     <Card title="" style={{ position: 'absolute', left: '340px', top: '1880px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '484px', height: '580px' }}>
@@ -299,8 +364,8 @@ class Profile extends Component {
                         {this.state.orgAchieveeditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="orgAchieveeditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                <Button label="Save" name="orgAchieveeditable" onClick={this.saveData} className="col-3 m-1" ></Button>
+                                <Button label="Cancel" onClick={this.cancelButton} className="col-3 m-1" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }

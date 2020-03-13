@@ -127,6 +127,45 @@ router.post('/get-company-jobs', function(req,res){
 });
 
 
+router.post('/get-company-events', function(req,res){
+    console.log("Inside Company Get My Events Function");
+    var sql = "SELECT * FROM events where company_id="+req.body.CompanyIdData+";"; 
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let events = [];
+        result.forEach(element => {
+              events.push(element)
+        });
+
+        res.end(JSON.stringify({
+            events
+        }));
+    });
+});
+
+
+router.post('/get-event-registrations', function(req,res){
+    console.log("Inside Company Get My Event registrations Function");
+    var sql = "SELECT * FROM student_info a INNER JOIN event_attendance b on a.student_id = b.student_id where company_id="+req.body.CompanyIdData+" AND event_id="+req.body.EventIdData+";"; 
+    // SELECT * FROM student_details a INNER JOIN applications b on a.id = b.id
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log(result);
+
+        let students = [];
+        result.forEach(element => {
+              students.push(element)
+        });
+
+        res.end(JSON.stringify({
+            students
+        }));
+    });
+});
+
+
 router.post('/get-applications', function(req,res){
     console.log("Inside Company Get My Applications Function");
     var sql = "SELECT * FROM student_info a INNER JOIN applications b on a.student_id = b.student_id where company_id="+req.body.CompanyIdData+" AND job_id="+req.body.JobIdData+";"; 

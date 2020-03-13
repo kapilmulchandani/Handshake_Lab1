@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import '../../styles/signup.css';
 import handshakeSignUp from './handshakeSignUp.png';
 import axios from 'axios';
-
+import { Button } from 'primereact/button';
 //create the Navbar Component
 // function mapStateToProps(store) {
 //     return {
@@ -25,7 +25,8 @@ class SignUp extends Component {
             last_name: "",
             college_name: "",
             emailid: "",
-            password: ""
+            password: "",
+            major: ""
         }
     }
 
@@ -46,7 +47,8 @@ class SignUp extends Component {
             LastNameData: this.state.last_name,
             CollegeData: this.state.college_name,
             EmailIdData: this.state.emailid,
-            PasswordData: this.state.password
+            PasswordData: this.state.password,
+            MajorData: this.state.major
         }
 
         axios.defaults.withCredentials = true;
@@ -72,7 +74,7 @@ class SignUp extends Component {
                 <br />
 
                 <div class="left-half" className="col-md-4">
-                    {/* <img src={handshakeSignUp}></img> */}
+                    <img class="imgHandshake" src={handshakeSignUp}></img>
                 </div>
                 <div class="right-half" className="col-md-8">
                     <div style={{position:'absolute', top:0, right:20}}>
@@ -95,6 +97,9 @@ class SignUp extends Component {
 
                             <label for="college"><b>College</b></label><br />
                             <input type="text" name="college_name" onChange={this.onChangeHandler} placeholder="College" name="college_name" required /><br />
+                            
+                            <label for="major"><b>Major</b></label><br />
+                            <input type="text" name="major" onChange={this.onChangeHandler} placeholder="Major" name="major" required /><br />
 
                             <label for="email"><b>Email</b></label><br />
                             <input type="text" name="emailid" onChange={this.onChangeHandler} placeholder="Enter Email" name="emailid" required /><br />
@@ -103,9 +108,11 @@ class SignUp extends Component {
                             <input type="password" name="password" onChange={this.onChangeHandler} placeholder="Enter Password" name="password" required /><br />
 
 
-                            <div class="clearfix">
-                                <button type="button" class="cancelbtn">Cancel</button>
-                                <button type="submit" onClick={this.submitLogin} class="signupbtn">Sign Up</button>
+                            <div className="mx-2 row">
+                                
+                                <Button label="Cancel" class="cancelbtn"></Button>
+                                <div className="mx-2"></div>
+                                <Button label="Sign Up" onClick={this.submitLogin} class="signupbtn"></Button>
                             </div>
                         </div>
                     </form>

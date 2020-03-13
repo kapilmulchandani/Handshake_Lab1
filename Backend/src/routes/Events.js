@@ -9,6 +9,7 @@ const router = express.Router();
 //MySQL config
 
 var mysql = require('mysql');
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user:'root',
@@ -20,6 +21,8 @@ connection.connect(function(err) {
     if (err) throw err
     
 });
+
+
 
 router.post('/post-event', function(req,res){
         console.log("Inside Company Post Event Function");
@@ -46,7 +49,6 @@ router.get('/get-events', function(req,res){
     var sql = "SELECT * FROM events"; 
     connection.query(sql, function (err, result) {
         if (err) throw err;
-        console.log(result);
 
         let events = [];
         result.forEach(element => {
@@ -57,6 +59,7 @@ router.get('/get-events', function(req,res){
             events
         }));
     });
+
 });
 
 router.post('/get-my-events', function(req,res){

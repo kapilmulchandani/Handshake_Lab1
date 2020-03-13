@@ -20,7 +20,7 @@ class StudentProfileView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            student_id: JSON.parse(localStorage.getItem("loggedInUser")).StudentId,
+            student_id: JSON.parse(localStorage.getItem("student_id")),
             EmailId: '',
             data: null,
             flag: 1,
@@ -29,51 +29,16 @@ class StudentProfileView extends Component {
             workExp: '',
             orgAchieve: '',
             skills: '',
+            major : '',
+            first_name: '',
+            last_name: '',
             mobile_number: 0,
             file: null
 
         };
-        this.getData.bind(this);
-        this.onEdit.bind(this);
+
     }
     //EmailId, City, DOB, Journey, Education, WorkExp, OrgAchieve, Skills, Mobile_Number
-
-    onEdit = (e) => {
-        console.log({ target: e.target.name })
-        console.log({ target: e })
-        this.setState({
-            [e.target.name]: true
-        })
-    }
-
-    handleEdit = (e) => {
-        e.preventDefault();
-        this.setState({
-            editable: true,
-            [e.target.name]: e.target.value
-        })
-    }
-
-
-    onProfilePicChange = (e) => {
-        this.setState({ file: e.target.files[0] });
-    }
-
-    onProfilePicSave = (e) => {
-        e.preventDefault();
-        const formData = new FormData();
-        formData.append('myImage', this.state.file);
-        const config = {
-            headers: {
-                'content-type': 'multipart/form-data'
-            }
-        };
-        axios.post("http://localhost:3001/upload", formData, config)
-            .then((response) => {
-                alert("The file is successfully uploaded");
-            }).catch((error) => {
-            });
-    }
 
 
     componentDidMount() {
@@ -100,8 +65,12 @@ class StudentProfileView extends Component {
                         education: newData.education,
                         workExp: newData.workExp,
                         orgAchieve: newData.orgAchieve,
-                        skills: newData.skills,
-                        mobile_number: newData.mobile_number
+                        skills: newData.skills.substring(1, newData.skills.length-1),
+                        mobile_number: newData.mobile_number,
+                        major : newData.major,
+                        first_name: newData.first_name,
+                        last_name: newData.last_name,
+                        EmailId: newData.EmailId
                     })
 
                 });
@@ -110,7 +79,7 @@ class StudentProfileView extends Component {
     }
 
     render() {
-        console.log({ state: this.state })
+        console.log( this.state );
         let style = { width: "148px" }
         return (
             <div>
@@ -142,7 +111,12 @@ class StudentProfileView extends Component {
                     </Card>
 
 
-                    <Card title="" style={{ position: 'absolute', top: '380px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
+                    <Card title="Basic Information" style={{ position: 'absolute', top: '380px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '280px' }}>
+                    <div>
+                        <strong>Name </strong>: {this.state.first_name} {this.state.last_name} <br />
+                        <strong>Major </strong>: {this.state.major} <br />
+                        <strong>Email-Id </strong>: {this.state.EmailId}
+                    </div>
                     </Card>
 
 
@@ -158,7 +132,7 @@ class StudentProfileView extends Component {
                         </div>
                     </Card>
 
-                    <Card title="Skills" subTitle="Subtitle" style={{ position: 'absolute', top: '980px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
+                    <Card title="Skills" style={{ position: 'absolute', top: '680px', float: 'left', marginTop: '30px', marginLeft: '210px', width: '304px', height: '580px' }}>
                         <div>{this.state.skills}</div>
                     </Card>
 
@@ -194,9 +168,5 @@ class StudentProfileView extends Component {
     }
 }
 
-// const mapStateToProps = state => {
-//     return { journey: state.journey };
-//   };
-// const UpdatedProfile = connect(mapStateToProps)(Profile);
 
 export default StudentProfileView;

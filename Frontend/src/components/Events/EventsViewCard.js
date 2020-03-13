@@ -18,7 +18,8 @@ class EventsViewCard extends Component {
         super(props);
         this.state = {
             allEvents: [],
-            i: 0
+            i: 0,
+            searchText: ''
         };
 
     }
@@ -39,6 +40,30 @@ class EventsViewCard extends Component {
 
             });
 
+    }
+
+    onSearch = (e) => {
+        e.preventDefault();
+
+        const data = {
+            SearchTextData: this.state.searchText,
+        }
+        var eventsToShow = [];
+        axios.defaults.withCredentials = true;
+        //make a post request with the user data
+        axios.post('http://localhost:3001/searchEventsQuery', data)
+            .then(response => {
+                eventsToShow = JSON.stringify(response.data.events);
+                localStorage.setItem("SearchEvents", eventsToShow);
+                this.setState({
+                    allEvents : JSON.parse(localStorage.getItem("SearchEvents"))
+                })
+            });
+    }
+    onChangeHandler = (e) => {
+        this.setState({
+            searchText : e.currentTarget.value
+        });
     }
 
     onRegister = (e) => {
@@ -73,8 +98,6 @@ class EventsViewCard extends Component {
                             <div className="col-md-7 mx-5">
                                 <div className="row">
                                     <h3>{item.event_name}</h3>
-                                    <div className="col-md-1"></div>
-                                    <Button title={item.company_id+"##"+item.event_id} style={{ position:'absolute', top:0, right:0}} onClick={this.onRegister} label="Register" />
                                 </div>
                                 <div className="row">
                                     <h6>{item.event_location}</h6>
@@ -86,6 +109,10 @@ class EventsViewCard extends Component {
                                 <div className="row">
                                     <h6>{item.event_time}</h6>
                                 </div>
+                                <div className="row">
+                                <Button className="my-1" title={item.company_id+"##"+item.event_id}  onClick={this.onRegister} label="Register" />
+                                </div>
+                                
                             </div>
                         </div>
                     </Card>
@@ -108,9 +135,9 @@ class EventsViewCard extends Component {
                     <div className="col-md-3 my-4"></div>
                     <Card title="" >
                         <Form inline className="mx-4 my-2">
-                            <FormControl type="text" style={{ width: '700px' }} placeholder="Search" className="mr-sm-2" />
-                            <Button label="Search" className="p-button-rounded p-button-secondary" />
-                        </Form>
+                            <FormControl onChange={this.onChangeHandler} type="text" style={{ width: '700px' }} placeholder="Search" className="mr-sm-2" />
+                            <Button onClick={this.onSearch} label="Search" className="p-button-rounded p-button-secondary" />
+                    </Form>
                     </Card>
                 </div>
                 {/* <Card title="" style={{ display: 'inline-block', marginTop: '230px', marginLeft: '210px', width: '304px', height: '280px' }}>
