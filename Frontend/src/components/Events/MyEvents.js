@@ -10,6 +10,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
+import getURL from '../../actions/url.js';
 
 var arr = [];
 
@@ -37,7 +38,7 @@ class MyEvents extends Component {
         const data = {
             StudentIdData : JSON.parse(localStorage.getItem("loggedInUser")).StudentId
         }
-        axios.post('http://localhost:3001/get-my-events', data)
+        axios.post(getURL("get-my-events"), data)
             .then(response => {
                 eventsToShow = JSON.stringify(response.data.events);
                 localStorage.setItem('Events', eventsToShow);

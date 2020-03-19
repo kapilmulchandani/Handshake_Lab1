@@ -6,6 +6,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import '../../styles/profile.css';
 import React, { Component } from 'react';
 import { Card } from 'primereact/card';
+import getURL from '../../actions/url.js';
 
 import axios from 'axios';
 
@@ -56,7 +57,7 @@ class StudentProfileView extends Component {
             const data = {
                 StudentIdData: this.state.student_id
             }
-            axios.post('http://10.0.0.251:3001/getStudentProfileData', data)
+            axios.post(getURL("getStudentProfileData"), data)
                 .then((response) => {
                     console.log(response.data);
                     var newData = response.data;

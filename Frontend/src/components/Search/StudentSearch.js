@@ -11,6 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import ButtonToolbar from 'react-bootstrap/ButtonGroup';
 import Button from 'react-bootstrap/Button';
+import getURL from '../../actions/url.js';
 
 const KeyCodes = {
     comma: 188,

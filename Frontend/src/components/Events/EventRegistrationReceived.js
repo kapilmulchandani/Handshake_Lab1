@@ -7,6 +7,7 @@ import { Image } from 'react-bootstrap';
 import { Button } from 'primereact/button';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
+import getURL from '../../actions/url.js';
 
 var renderedOutput;
 class EventRegistrationReceived extends Component {
@@ -31,7 +32,7 @@ class EventRegistrationReceived extends Component {
             CompanyIdData: JSON.parse(localStorage.getItem("loggedInCompany")).CompanyId,
             EventIdData: JSON.parse(localStorage.getItem('Event_Id'))
         }
-        axios.post('http://localhost:3001/get-event-registrations', data)
+        axios.post(getURL("get-event-registrations"), data)
             .then(response => {
                 studentsToShow = JSON.stringify(response.data.students);
                 localStorage.setItem('Students', studentsToShow);

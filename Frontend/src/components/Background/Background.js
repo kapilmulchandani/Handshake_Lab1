@@ -6,6 +6,7 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import axios from 'axios';
 import { journeyData } from "../../js/actions/index";
+import getURL from '../../actions/url.js';
 
 class Background extends Component {
     constructor(props) {
@@ -17,7 +18,7 @@ class Background extends Component {
 
     componentDidMount() {
         // this.props.journeyData({ data});
-        axios.get('http://localhost:3001/getProfileData')
+        axios.get(getURL("getProfileData"))
             .then(response => {
                 console.log("data got =", response.data);
                 

@@ -7,6 +7,7 @@ import { Image } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { Button } from 'primereact/button';
 import axios from 'axios';
+import getURL from '../../actions/url.js';
 
 var events = []
 events = JSON.parse(localStorage.getItem("Events"));
@@ -34,7 +35,7 @@ class EventRegister extends Component {
         const data = {
             StudentIdData: JSON.parse(localStorage.getItem("loggedInUser")).StudentId
         };
-        axios.post('http://localhost:3001/get-major', data)
+        axios.post(getURL("get-major"), data)
             .then(response => {
                 console.log('REsponse', response.data.StudentMajor[0].major);
                 StudentMajor = response.data.StudentMajor[0].major;
@@ -56,7 +57,7 @@ class EventRegister extends Component {
                 CompanyIdData: compId,
                 StudentIdData: JSON.parse(localStorage.getItem("loggedInUser")).StudentId
             };
-            axios.post('http://localhost:3001/register-event', data)
+            axios.post(getURL("register-event"), data)
                 .then(response => {
                     if (response.data === 'Successful_Insertion') {
                         window.open('/my-events', "_self");

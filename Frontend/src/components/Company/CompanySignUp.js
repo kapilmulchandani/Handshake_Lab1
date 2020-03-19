@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import '../../styles/signup.css';
 import axios from 'axios';
+import handshakeSignUp from '../Account/handshakeSignUp.png';
+import getURL from '../../actions/url.js';
 
 //create the Navbar Component
 // function mapStateToProps(store) {
@@ -48,7 +50,7 @@ class SignUp extends Component {
 
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/companysignup', data)
+        axios.post(getURL("companysignup"), data)
             .then(response => {
                 console.log("Status Code Create : ", response.data);
                 if (response.data === 'Successful_Insertion') {
@@ -69,16 +71,16 @@ class SignUp extends Component {
                 <br />
 
                 <div class="left-half" className="col-md-4">
-                    {/* <img src={handshakeSignUp}></img> */}
+                    <img src={handshakeSignUp}></img>
                 </div>
                 <div class="right-half" className="col-md-8">
                     <div style={{position:'absolute', top:0, right:20}}>
                         Are you a Student?
                         <b><a href="/signup"> Sign up here.</a></b>
                     </div>
-                    <h1 class="style_heading" >Let's find your next job</h1>
+                    <h1 class="style_heading" >Let's find your potential candidates</h1>
 
-                    <div class="style__text">Join Handshake's community of students, <br></br>schools, and employers to find internships,<br></br> land a job, and more.
+                    <div class="style__text">Join Handshake's community of students, <br></br>schools, and employers to find best employees,<br></br> land a job, and more.
                     </div>
 
                     <form class="signUpForm" action='action_page.php' style={{ border: '1px', color: 'solid #ccc' }}>

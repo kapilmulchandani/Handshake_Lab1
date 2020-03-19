@@ -8,6 +8,7 @@ import { Calendar } from 'primereact/calendar';
 import { Dropdown } from 'primereact/dropdown';
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
+import getURL from '../../actions/url.js';
 
 class CompanyJobPosting extends Component {
     constructor(props) {
@@ -62,7 +63,7 @@ class CompanyJobPosting extends Component {
         console.log(data);
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/post-job', data)
+        axios.post(getURL("post-job"), data)
             .then(response => {
                 console.log("Status Code Create : ", response.data);
                 if (response.data === 'Successful_Insertion') {

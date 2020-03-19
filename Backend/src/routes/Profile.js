@@ -53,7 +53,8 @@ router.post('/getProfileData', function (req, resp) {
                 orgAchieve: result[0].org_achieve,
                 skills: result[0].skills,
                 mobile_number: result[0].mobile_number,
-                major : majorHere.major
+                major : majorHere.major,
+                profile_pic : result[0].profile_picture
             }));
         }
     });

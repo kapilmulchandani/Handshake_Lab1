@@ -10,6 +10,7 @@ import FormControl from 'react-bootstrap/FormControl'
 import { Navbar } from 'react-bootstrap';
 import { Nav } from 'react-bootstrap';
 import { Image } from 'react-bootstrap';
+import getURL from '../../actions/url.js';
 
 
 var renderedOutput;
@@ -31,7 +32,7 @@ class MyJobs extends Component {
         const data = {
             StudentIdData: JSON.parse(localStorage.getItem("loggedInUser")).StudentId
         }
-        axios.post('http://localhost:3001/get-my-jobs', data)
+        axios.post(getURL("get-my-jobs"), data)
             .then(response => {
                 jobsToShow = JSON.stringify(response.data.jobs);
                 localStorage.setItem('Jobs', jobsToShow);
@@ -67,7 +68,7 @@ class MyJobs extends Component {
         var jobstoShow = [];
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/filter-application-status-query', data)
+        axios.post(getURL("filter-application-status-query"), data)
             .then(response => {
                 jobstoShow = JSON.stringify(response.data.jobs);
                 localStorage.setItem("FilterAppJobs", jobstoShow);
@@ -90,7 +91,7 @@ class MyJobs extends Component {
                     <Card title="" style={{ display: 'inline-block', width: '804px', height: '200px' }}>
                         <div className="row">
                             <div className="col-md-3">
-                                <Image src={'/' + item.company_id + '.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
+                                <Image src={'3.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
                             </div>
                             <div className="col-md-7 mx-5">
                                 <div className="row">

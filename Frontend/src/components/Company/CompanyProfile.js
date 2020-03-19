@@ -6,6 +6,7 @@ import { InputTextarea } from 'primereact/inputtextarea';
 import Image from 'react-bootstrap/Image'
 // import Button from 'react-bootstrap/Button';
 import { Button } from 'primereact/button';
+import getURL from '../../actions/url.js';
 
 class CompanyProfile extends Component {
     constructor(props) {
@@ -50,7 +51,7 @@ class CompanyProfile extends Component {
         const data = new FormData()
         data.append('file', this.state.selectedFile);
         console.log(data);
-        axios.post("http://localhost:3001/upload", data)
+        axios.post(getURL("upload"), data)
             .then(res => { // then print response status
                 console.log(res.statusText)
                 alert('File Uploaded Successfully');
@@ -68,7 +69,7 @@ class CompanyProfile extends Component {
             DescriptionData: this.state.description,
             ContactInfoData: this.state.contact_info
         }
-        axios.post('http://localhost:3001/save-company-profile', data)
+        axios.post(getURL("save-company-profile"), data)
             .then((response) => {
                 // console.log(response.data);
 
@@ -97,7 +98,7 @@ class CompanyProfile extends Component {
             CompanyIdData: this.state.company_id
         }
 
-        axios.post('http://localhost:3001/getCompanyProfileData', data)
+        axios.post(getURL("getCompanyProfileData"), data)
             .then((response) => {
                 console.log(response.data);
                 var newData = response.data;
@@ -120,9 +121,9 @@ class CompanyProfile extends Component {
                 <div className="content-section implementation">
                     <Card title="" style={{ display: 'inline-block', marginTop: '30px', marginLeft: '210px', width: '304px', height: '310px' }}>
                         <div>
-                            <Image className="mx-2 my-2" style={{width:'200px', height:'200px'}} src={'/company_'+ this.state.company_id+'.png'}  />
+                            <Image className="mx-2 my-2" style={{width:'200px', height:'200px'}} src={'/company'+'.png'}  />
                             <form onSubmit={this.onProfilePicSave}>
-                                <input type="file" accept="image/jpg, image/png" name="myImage" onChange={this.onChangeHandler} />
+                                <input type="file" accept="image/jpg, image/png" name="file" onChange={this.onChangeHandler} />
                                 <Button className="my-2" label="Upload" onClick={this.onClickHandler} />
                             </form>
                         </div>
@@ -147,8 +148,10 @@ class CompanyProfile extends Component {
                         {this.state.descriptionEditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="descriptionEditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                {/* <Button variant="primary" name="descriptionEditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
+                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button> */}
+                                <Button  name="descriptionEditable" onClick={this.saveData} className="col-3 m-1" label="Save"></Button>
+                                <Button  onClick={this.cancelButton} className="col-3 m-1" label="Cancel" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }
@@ -173,8 +176,8 @@ class CompanyProfile extends Component {
                         {this.state.locationEditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="locationEditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                <Button  name="locationEditable" onClick={this.saveData} className="col-3 m-1" label="Save"></Button>
+                                <Button  onClick={this.cancelButton} className="col-3 m-1" label="Cancel" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }
@@ -200,8 +203,9 @@ class CompanyProfile extends Component {
                         {this.state.contactInfoEditable ?
                             <div className="row">
                                 <div className="col-3"></div>
-                                <Button variant="primary" name="contactInfoEditable" onClick={this.saveData} className="col-3 m-1" size="sm">Save</Button>
-                                <Button variant="danger" onClick={this.cancelButton} className="col-3 m-1" size="sm">Cancel</Button>
+                                
+                                <Button  name="contactInfoEditable" onClick={this.saveData} className="col-3 m-1" label="Save"></Button>
+                                <Button  onClick={this.cancelButton} className="col-3 m-1" label="Cancel" ></Button>
                                 <div className="col-3"></div>
                             </div> : null
                         }

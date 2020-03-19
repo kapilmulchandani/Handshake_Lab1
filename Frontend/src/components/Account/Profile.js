@@ -23,12 +23,15 @@ import { fetchprofileAction } from '../../actions/profileAction';
 import Image from 'react-bootstrap/Image'
 import { Button } from 'primereact/button';
 // import profilePic from '/logo192.png';
+import getURL from '../../actions/url.js';
+
 
 class Profile extends Component {
     constructor(props) {
         super(props);
         this.state = {
             EmailId: JSON.parse(localStorage.getItem("loggedInUser")).EmailId,
+            StudentId: JSON.parse(localStorage.getItem("loggedInUser")).StudentId,
             data: null,
             skillseditable: false,
             journeyeditable: false,
@@ -45,6 +48,8 @@ class Profile extends Component {
             skills: '',
             mobile_number: 99211,
             major: '',
+            profile_picture: '',
+            selectedFile: null,
             file: null
 
         };
@@ -83,7 +88,7 @@ class Profile extends Component {
                 'content-type': 'multipart/form-data'
             }
         };
-        axios.post("http://localhost:3001/upload", formData, config)
+        axios.post(getURL("upload"), formData, config)
             .then((response) => {
                 alert("The file is successfully uploaded");
             }).catch((error) => {
@@ -103,7 +108,7 @@ class Profile extends Component {
             majorData: this.state.major
 
         }
-        axios.post('http://10.0.0.251:3001/save', data)
+        axios.post(getURL("save"), data)
             .then((response) => {
                 // console.log(response.data);
 
@@ -149,10 +154,21 @@ class Profile extends Component {
     onClickHandler = () => {
         const data = new FormData()
         data.append('file', this.state.selectedFile);
-        console.log(data);
-        axios.post("http://localhost:3001/upload", data)
+        axios.post(getURL("upload"), data)
             .then(res => { // then print response status
                 console.log(res.statusText)
+                
+            });
+
+            const dataNew = {
+                FileNameData: this.state.selectedFile.name,
+                StudentIdData: this.state.StudentId,
+            }
+
+            console.log(dataNew.FileNameData);
+
+            axios.post(getURL("upload-profile-picture"), dataNew)
+            .then(res => {
                 alert('File Uploaded Successfully');
             });
         // receive two    parameter endpoint url ,form data
@@ -163,7 +179,7 @@ class Profile extends Component {
             const data = {
                 EmailIdData: this.state.EmailId
             }
-            axios.post('http://10.0.0.251:3001/getProfileData', data)
+            axios.post(getURL("getProfileData"), data)
                 .then((response) => {
                     console.log(response.data);
                     var newData = response.data;
@@ -175,11 +191,12 @@ class Profile extends Component {
                         skills: newData.skills.substring(1, newData.skills.length-1),
                         // yourString.substring(1, yourString.length-1);
                         mobile_number: newData.mobile_number,
-                        major: newData.major
+                        major: newData.major,
+                        profile_picture: newData.profile_pic
                     })
 
                 });
-
+                
             await this.props.fetchprofileAction({
                 journey: this.state.journey,
             });
@@ -209,7 +226,8 @@ class Profile extends Component {
                 <div className="content-section implementation">
                     <Card title="" style={{ display: 'inline-block', marginTop: '30px', marginLeft: '210px', width: '304px', height: '280px' }}>
                         <div>
-                            <Image src={'/logo192.png'} roundedCircle='true' />
+                            {console.log(this.state.profile_picture)}
+                            <Image src={this.state.profile_picture} style={{width: '80px'}} />
                             <form onSubmit={this.onProfilePicSave}>
                                 <input type="file" accept="image/jpg, image/png" name="myImage" onChange={this.onChangeHandler} />
                                 <Button className="my-2" label="Upload" onClick={this.onClickHandler} />

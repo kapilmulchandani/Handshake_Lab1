@@ -7,9 +7,9 @@ import FormControl from 'react-bootstrap/FormControl'
 import Card from 'react-bootstrap/Card';
 // import Button from 'react-bootstrap/Button';
 import {Button} from 'primereact/button';
-import getURL from '../../actions/url';
 import axios from 'axios';
 import { Image } from 'react-bootstrap';
+import getURL from '../../actions/url.js';
 
 var renderedOutput;
 class StudentJobDashboard extends Component {
@@ -74,7 +74,7 @@ class StudentJobDashboard extends Component {
         var jobstoShow = [];
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/searchQuery', data)
+        axios.post(getURL("searchQuery"), data)
             .then(response => {
                 jobstoShow = JSON.stringify(response.data.jobs);
                 localStorage.setItem("SearchJobs", jobstoShow);
@@ -92,7 +92,7 @@ class StudentJobDashboard extends Component {
         var jobstoShow = [];
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/filterQuery', data)
+        axios.post(getURL("filterQuery"), data)
             .then(response => {
                 jobstoShow = JSON.stringify(response.data.jobs);
                 localStorage.setItem("FilterJobs", jobstoShow);
@@ -116,7 +116,7 @@ class StudentJobDashboard extends Component {
                         <div className="row">
                             <div className="col-md-3">
                                 {console.log('I ', this.state.i)}
-                                <Image src={'/'+item.company_id+'.png'} style={{ width: '200px', height: '180px' }}  />
+                                <Image src={'3.png'} style={{ width: '200px', height: '180px' }}  />
                             </div>
                             <div className="col-md-7 mx-5 my-4">
                                 <div className="row">

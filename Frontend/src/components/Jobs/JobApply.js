@@ -7,6 +7,7 @@ import { Image } from 'react-bootstrap';
 import Form from 'react-bootstrap/Form'
 import { Button } from 'primereact/button';
 import axios from 'axios';
+import getURL from '../../actions/url.js';
 
 var jobs = []
 jobs = JSON.parse(localStorage.getItem("Jobs"));
@@ -50,7 +51,7 @@ class JobApply extends Component {
         const data = new FormData()
         data.append('file', this.state.selectedFile);
         console.log(data);
-        axios.post("http://localhost:3001/upload", data)
+        axios.post(getURL("upload"), data)
             .then(res => { // then print response status
                 console.log(res.statusText)
                 alert('Resume Uploaded Successfully');
@@ -71,7 +72,7 @@ class JobApply extends Component {
             StudentIdData: JSON.parse(localStorage.getItem("loggedInUser")).StudentId,
             ApplicationStatusData: 'pending'
         };
-        axios.post('http://localhost:3001/apply-job', data)
+        axios.post(getURL("apply-job"), data)
             .then(response => {
                 if (response.data === 'Successful_Insertion') {
                     window.open('/my-jobs', "_self");

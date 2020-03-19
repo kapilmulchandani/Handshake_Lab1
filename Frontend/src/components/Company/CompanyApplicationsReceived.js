@@ -12,6 +12,7 @@ import { Dropdown } from 'primereact/dropdown';
 
 import Popup from '../Account/Popup';
 import ViewResume from '../Account/ViewResume';
+import getURL from '../../actions/url.js';
 
 var renderedOutput;
 class CompanyApplicationsReceived extends Component {
@@ -49,7 +50,7 @@ class CompanyApplicationsReceived extends Component {
             CompanyIdData: JSON.parse(localStorage.getItem("loggedInCompany")).CompanyId,
             JobIdData: JSON.parse(localStorage.getItem('Job_Id'))
         }
-        axios.post('http://localhost:3001/get-applications', data)
+        axios.post(getURL("get-applications"), data)
             .then(response => {
                 studentsToShow = JSON.stringify(response.data.students);
                 localStorage.setItem('Students', studentsToShow);
@@ -88,7 +89,7 @@ class CompanyApplicationsReceived extends Component {
             StudentIdData: eve_comp[2],
             ApplicationStatusData: this.state.jobCategory
         };
-        axios.post('http://localhost:3001/update-status', data)
+        axios.post(getURL("update-status"), data)
             .then(response => {
                 if (response.data === 'Successful_Insertion') {
                     alert('Updated Successfully');

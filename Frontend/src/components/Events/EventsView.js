@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DataScrollerSubmenu from './DataScrollerSubmenu';
 import { Card } from 'primereact/card';
+import getURL from '../../actions/url.js';
 
 var firstEvent;
 var statelessEvents;
@@ -23,7 +24,7 @@ class EventsView extends Component {
         axios.defaults.withCredentials = true;
         var eventsToShow = [];
         //make a post request with the user data
-        axios.get('http://localhost:3001/get-events')
+        axios.get(getURL("get-events"))
             .then(response => {
                 // console.log('response-data', response.data.events);
                 debugger;

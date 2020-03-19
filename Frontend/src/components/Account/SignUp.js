@@ -3,19 +3,7 @@ import '../../styles/signup.css';
 import handshakeSignUp from './handshakeSignUp.png';
 import axios from 'axios';
 import { Button } from 'primereact/button';
-//create the Navbar Component
-// function mapStateToProps(store) {
-//     return {
-//         signupSuccess:store.account.signupSuccess,
-//         signupMessage:store.account.signupMessage,
-//     }
-// }
-
-// function mapDispatchToProps(dispatch) {
-//     return {
-//         signup: (data) => dispatch(signup(data)),
-//     };
-// }
+import getURL from '../../actions/url.js';
 
 class SignUp extends Component {
     constructor(props) {
@@ -53,7 +41,7 @@ class SignUp extends Component {
 
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/signup', data)
+        axios.post(getURL("signup"), data)
             .then(response => {
                 console.log("Status Code Create : ", response.data);
                 if (response.data === 'Successful_Insertion') {

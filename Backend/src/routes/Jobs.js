@@ -71,7 +71,7 @@ router.post('/apply-job', function(req,res){
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
+    cb(null, __dirname+'/../../../Frontend/public')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname )
@@ -93,6 +93,18 @@ router.post('/upload',function(req, res) {
     })
 
 });
+
+router.post('/upload-profile-picture', function(req,res){
+    console.log(req.body.FileNameData)
+    var sql = "UPDATE student_details SET profile_picture = '"+req.body.FileNameData+"' WHERE student_id='"+req.body.StudentIdData+"';";
+    connection.query(sql, function (err, result) {
+        if (err) throw err;
+        console.log('Success');
+        res.end("Successful_Updation");
+    });
+});
+
+
 
 
 router.post('/update-status', function(req,res){

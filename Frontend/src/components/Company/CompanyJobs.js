@@ -7,6 +7,7 @@ import { Image } from 'react-bootstrap';
 import { Button } from 'primereact/button';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl'
+import getURL from '../../actions/url.js';
 
 var renderedOutput;
 class CompanyJobs extends Component{
@@ -25,7 +26,7 @@ class CompanyJobs extends Component{
         const data = {
             CompanyIdData : JSON.parse(localStorage.getItem("loggedInCompany")).CompanyId
         }
-        axios.post('http://localhost:3001/get-company-jobs', data)
+        axios.post(getURL("get-company-jobs"), data)
             .then(response => {
                 jobsToShow = JSON.stringify(response.data.jobs);
                 localStorage.setItem('CompanyJobs', jobsToShow);

@@ -51,7 +51,7 @@ class EventsViewCard extends Component {
         var eventsToShow = [];
         axios.defaults.withCredentials = true;
         //make a post request with the user data
-        axios.post('http://localhost:3001/searchEventsQuery', data)
+        axios.post(getURL("searchEventsQuery"), data)
             .then(response => {
                 eventsToShow = JSON.stringify(response.data.events);
                 localStorage.setItem("SearchEvents", eventsToShow);
@@ -93,7 +93,7 @@ class EventsViewCard extends Component {
                     <Card title="" style={{ display: 'inline-block', width: '804px', height: '200px' }}>
                         <div className="row">
                             <div className="col-md-3">
-                                <Image src={'/amazon.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
+                                <Image src={'/events.jpg'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
                             </div>
                             <div className="col-md-7 mx-5">
                                 <div className="row">
