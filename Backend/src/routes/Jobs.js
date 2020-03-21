@@ -71,7 +71,7 @@ router.post('/apply-job', function(req,res){
 
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
-    cb(null, __dirname+'/../../../Frontend/public')
+    cb(null, 'public/')
   },
   filename: function (req, file, cb) {
     cb(null, file.originalname )

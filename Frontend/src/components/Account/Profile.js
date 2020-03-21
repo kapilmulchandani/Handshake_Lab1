@@ -227,7 +227,7 @@ class Profile extends Component {
                     <Card title="" style={{ display: 'inline-block', marginTop: '30px', marginLeft: '210px', width: '304px', height: '280px' }}>
                         <div>
                             {console.log(this.state.profile_picture)}
-                            <Image src={this.state.profile_picture} style={{width: '80px'}} />
+                            <Image src={'54.153.65.183/public/'+this.state.profile_picture} style={{width: '80px'}} />
                             <form onSubmit={this.onProfilePicSave}>
                                 <input type="file" accept="image/jpg, image/png" name="myImage" onChange={this.onChangeHandler} />
                                 <Button className="my-2" label="Upload" onClick={this.onClickHandler} />
