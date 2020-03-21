@@ -11,8 +11,8 @@ const router = express.Router();
 
 var mysql = require('mysql');
 const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
+    host: 'database-2.cqbjhdeezpcd.us-east-1.rds.amazonaws.com',
+    user: 'admin',
     password: 'kapil123',//password of your mysql db
     database: 'handshake_schema'
 });
