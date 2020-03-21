@@ -82,7 +82,7 @@ class EventRegister extends Component {
                     <div className="col-md-8 mx-2 my-4">
                         <Card className="my-4" Title="" style={{ width: '' }}>
                             <div className="row">
-                                <Image src={'/' + events[i].event_title + '.jpg'} style={{ marginLeft: '70px', width: '450px' }} />
+                                <Image src={'/python.jpg'} style={{ marginLeft: '70px', width: '450px' }} />
                             </div>
                         </Card>
                         <div className="row">

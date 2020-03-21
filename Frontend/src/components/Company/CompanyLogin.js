@@ -52,6 +52,12 @@ class CompanyLogin extends Component {
 
     }
 
+    cancelClick = (e) =>{
+        e.preventDefault();
+        window.open('\\', "_self")
+    }
+
+
     render() {
         let invalidCredentials = null;
         if (this.state.errorMessage) {
@@ -69,7 +75,7 @@ class CompanyLogin extends Component {
                 <Card title="">
                     {localStorage.getItem("loggedInCompany") ? <Redirect to="/company-job-posting" /> : ""}
                     {/* <div className="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 login-dashboard"> */}
-                    <div className="col-md-5 col-md-offset-4  login-dashboard">
+                    <div className="col-md-7 col-md-offset-4  login-dashboard">
                        
                         <div className="row">
                             <div>{invalidCredentials}</div>
@@ -91,6 +97,7 @@ class CompanyLogin extends Component {
                             <br />
                             <div className="row">
                                 <Button label="Sign In" onClick={this.submitLogin} />
+                                <Button className="mx-1" label="Cancel" onClick={this.cancelClick} />
                             </div>
                         </form>
                     </div>

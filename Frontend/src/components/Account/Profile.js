@@ -38,7 +38,6 @@ class Profile extends Component {
             educationeditable: false,
             workExpeditable: false,
             orgAchieveeditable: false,
-            journeyeditable: false,
             majorEditable: false,
             flag: 1,
             journey: '',
@@ -69,7 +68,7 @@ class Profile extends Component {
     handleEdit = (e) => {
         e.preventDefault();
         this.setState({
-            editable: true,
+            // editable: true,
             [e.target.name]: e.target.value
         })
     }
@@ -96,6 +95,9 @@ class Profile extends Component {
     }
 
     saveData = (e) => {
+        this.setState({
+            [e.currentTarget.name]: false
+        });
         // this.handleJourneyEdit();
         const data = {
             emailData: this.state.EmailId,
@@ -114,9 +116,7 @@ class Profile extends Component {
 
             });
 
-        this.setState({
-            [e.target.name]: false
-        });
+        
 
         console.log({ target: e.target.name });
         console.log({ target: e });

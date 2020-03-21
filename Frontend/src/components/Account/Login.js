@@ -52,6 +52,11 @@ class Login extends Component {
 
     }
 
+    cancelClick = (e) =>{
+        e.preventDefault();
+        window.open('\\', "_self")
+    }
+
     render() {
         let invalidCredentials = null;
         if (this.state.errorMessage) {
@@ -71,7 +76,7 @@ class Login extends Component {
                 <Card title="">
                     {localStorage.getItem("loggedInUser") ? <Redirect to="/profile" /> : ""}
                     {/* <div className="col-lg-4 col-lg-offset-4 col-md-5 col-md-offset-4 col-sm-6 col-sm-offset-3 col-xs-12 login-dashboard"> */}
-                    <div className="col-md-5 col-md-offset-4  login-dashboard">
+                    <div className="col-md-7 login-dashboard">
                        
                         <div className="row">
                             <div>{invalidCredentials}</div>
@@ -93,6 +98,8 @@ class Login extends Component {
                             <br />
                             <div className="row">
                                 <Button label="Sign In" onClick={this.submitLogin} />
+                                
+                                <Button className="mx-1" label="Cancel" onClick={this.cancelClick}/>
                             </div>
                         </form>
                     </div>

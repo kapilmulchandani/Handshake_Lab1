@@ -66,7 +66,7 @@ class CompanyJobs extends Component{
                     <Card title="" style={{ display: 'inline-block', width: '804px', height: '200px' }}>
                         <div className="row">
                             <div className="col-md-3">
-                                <Image src={'/'+item.company_id+'.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
+                                <Image src={'/3.png'} style={{ width: '200px', height: '180px' }} roundedCircle='true' />
                             </div>
                             <div className="col-md-7 mx-5">
                                 <div className="row">

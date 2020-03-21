@@ -21,13 +21,13 @@
     height: 100%;
   }
 
-.handshake_img {
+ .handshake_img {
     top: 40px;
     margin-right: auto;
     position: absolute;
     right: 360px;
     /* width: 65%; */
-  }
+}
   .institution-logo {
     top: 40px;
     margin-right: auto;
@@ -80,13 +80,13 @@ p {
 
 .collegeName {
     margin-top: 340px;
-    margin-left: 460px;  
+    margin-left: 320px;  
 }
 
 .sso-button {
     /* height: auto; */
     margin-top: 20px;
-    margin-left: 450px; 
+    margin-left: 320px; 
     max-width: 256px;
     align-items: center;
     background-color: #1569e0;

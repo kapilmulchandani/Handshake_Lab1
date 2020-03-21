@@ -52,6 +52,10 @@ class SignUp extends Component {
 
     }
 
+    cancelClick = (e) =>{
+        e.preventDefault();
+        window.open('\\', "_self")
+    }
 
     render() {
 
@@ -98,7 +102,7 @@ class SignUp extends Component {
 
                             <div className="mx-2 row">
                                 
-                                <Button label="Cancel" class="cancelbtn"></Button>
+                                <Button className="mx-1" label="Cancel" onClick={this.cancelClick} />
                                 <div className="mx-2"></div>
                                 <Button label="Sign Up" onClick={this.submitLogin} class="signupbtn"></Button>
                             </div>
